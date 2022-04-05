@@ -1,0 +1,19 @@
+{
+    "restartable":"rs",
+    "ignore":[
+        ".git",
+        ".svn",
+        "node_modules/**/node_modules"
+    ],
+    "verbose": true,
+    "exeMap":{
+        "js":"node --harmony"
+    },
+    "watch":[
+
+    ],
+    "env":{
+        "NOOE_ENV":"development"
+    },
+    "ext": "js json"
+}
