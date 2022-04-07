@@ -6,18 +6,17 @@ import { logout } from '../actions/LoginAction';
 
 class NavBar extends Component {
 
-    // 退出操作
+
     logout = (e) => {
         e.preventDefault()
-        // 数据清除
         this.props.logout()
     }
 
     render() {
-        // 读取是否登录
+        //
         const { isAuth } = this.props.auth
 
-        // 用户模式（已登录）
+        // user model
         const userLinks = (
             <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
@@ -26,7 +25,7 @@ class NavBar extends Component {
             </ul>
         )
 
-        // 游客模式（未登录）
+        // visitor model
         const guestLinks = (
             <ul className="navbar-nav mr-auto">
                 <li className="nav-item">

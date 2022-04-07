@@ -5,7 +5,6 @@ import APP from './components/App'
 import SignupPage from './components/signup/SignupPage'
 import LoginPage from './components/login/LoginPage'
 
-import requierAuth from './utils/requierAuth'
 
 
 export default(

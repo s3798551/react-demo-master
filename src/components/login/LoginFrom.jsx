@@ -15,7 +15,7 @@ class LoginFrom extends React.Component {
             idloading: false,
         }
     }
-    // 验证
+
     isValid = (e) => {
 
         const { errors, isValid } = validataInput(this.state)
@@ -28,14 +28,13 @@ class LoginFrom extends React.Component {
 
     }
 
-    // 提交
+
     onSubmit = (e) => {
         e.preventDefault();
 
         this.setState({ errors: {}, idloading: true })
 
         if (this.isValid()) {
-            // 是否成功登录
             this.props.loginAction.userloginAction(this.state).then(
                 // success
                 (res) => {
@@ -49,7 +48,7 @@ class LoginFrom extends React.Component {
         }
 
     }
-    // 绑定
+
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }

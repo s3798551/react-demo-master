@@ -1,6 +1,1 @@
-// 注册
-export const ADD_FLASH_MASSAGE = 'ADD_FLASH_MASSAGE'
-// 删除提示
-export const DELETE_FLASH_MASSAGE = 'DELETE_FLASH_MASSAGE'
-// 设置用户
 export const SET_CURRENT_USER = "SET_CURRENT_USER"

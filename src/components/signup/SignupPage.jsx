@@ -4,7 +4,7 @@ import SignupForm from './SignupForm'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as signupActions from '../../actions/SignupActions'
-import * as flashAction from '../../actions/FlashMassage'
+
 
 class SignupPage extends React.Component {
 
@@ -24,7 +24,6 @@ class SignupPage extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         signupActions: bindActionCreators(signupActions, dispatch),
-        flashAction: bindActionCreators(flashAction,dispatch)
     }
 }
 

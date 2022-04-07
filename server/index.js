@@ -10,6 +10,6 @@ app.use("/api/users",users)
 app.use("/api/login",login)
 
 
-app.listen(3030,(req,res) => {
-    debug("3030端口服务器启动")
+app.listen(8080,(req,res) => {
+    debug("8080 port service run")
 })

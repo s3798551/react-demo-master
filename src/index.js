@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-// 第三方工具
+
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
@@ -17,7 +17,6 @@ import routes from './routes'
 import { BrowserRouter as Router, BrowserRouter, Route } from 'react-router-dom'
 
 import NavBar from './components/NavBar'
-import FlashMassagesList from './components/flash/FlashMessagesList'
 import setAuthToken from './utils/setAuthToken'
 
 import { setCurrentUser } from './actions/LoginAction'
@@ -35,7 +34,6 @@ ReactDOM.render(
     <Provider store = { store }>
         <Router routes = { routes }>
             <NavBar/>
-            <FlashMassagesList />
             { routes  }
         </Router>
     </Provider>

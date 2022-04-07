@@ -13,7 +13,7 @@ class SignupForm extends React.Component {
             password: "",
             passwordConfir: "",
             errors: {},
-            isloading: false,  //判断是否有错误
+            isloading: false,
             isvalid:false,
         }
     }
@@ -23,7 +23,7 @@ class SignupForm extends React.Component {
             [e.target.name]: e.target.value
         })
     }
-    // 提交
+    // sumbit
     onSubmit = (e) => {
         e.preventDefault();
         this.setState({errors:{}, isloading:true})
@@ -37,11 +37,11 @@ class SignupForm extends React.Component {
                 })
                 this.props.history.push('/')
              },
-            // false，调用错误内容
+            // false
             ({ response }) => { this.setState({ errors: response.data, isloading: false }) }
         )
     }
-    // 检查username是否重复
+
     clackUserExists = (e) =>{
         const fidld = e.target.name;
         const val = e.target.value;
@@ -50,7 +50,7 @@ class SignupForm extends React.Component {
             this.props.signupActions.isUserExists(val).then(res =>{
                 let errors = this.state.errors;
                 if(res.data[0]){
-                    errors[fidld] = 'The user"' + val + '"已存在！'
+                    errors[fidld] = 'The user"' + val + '"is existing'
                     isvalid = true
                 }else{
                     errors[fidld] = '';
@@ -120,7 +120,7 @@ class SignupForm extends React.Component {
                 </div>
 
                 <div className="form-group">
-                    <button type="submit" disabled={isloading || isvalid} className="btn btn-primary btn-md">注册</button>
+                    <button type="submit" disabled={isloading || isvalid} className="btn btn-primary btn-md">Signup</button>
                 </div>
             </form>
         )
