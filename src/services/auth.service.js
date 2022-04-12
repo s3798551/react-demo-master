@@ -29,6 +29,20 @@ class AuthService {
       password
     });
   }
+  order(senderName, senderPhonenumber, senderAddress, receiverName, receiverPhonenumber, receiverAddress,
+        productType, productWeight, pickupTime){
+    return axios.post(API_URL + "order",{
+      senderName,
+      senderPhonenumber,
+      senderAddress,
+      receiverName,
+      receiverPhonenumber,
+      receiverAddress,
+      productType,
+      productWeight,
+      pickupTime
+    })
+  }
 
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));;

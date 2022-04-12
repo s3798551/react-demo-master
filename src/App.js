@@ -9,6 +9,7 @@ import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
+import Order from "./components/order.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
@@ -101,6 +102,11 @@ class App extends Component {
                     {currentUser ? (
                         <div className="navbar-nav ml-auto">
                             <li className="nav-item">
+                                <a href="/order" className="nav-link">
+                                    Order
+                                </a>
+                            </li>
+                            <li className="nav-item">
                                 <Link to={"/profile"} className="nav-link">
                                     {currentUser.username}
                                 </Link>
@@ -124,6 +130,12 @@ class App extends Component {
                                     Sign Up
                                 </Link>
                             </li>
+
+                            {/*<li className="nav-item">*/}
+                            {/*    <Link to={"/order"} className="nav-link">*/}
+                            {/*        Order*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
                         </div>
                     )}
                 </nav>
@@ -134,6 +146,7 @@ class App extends Component {
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
                         <Route exact path="/profile" component={Profile} />
+                        <Route exact path="/order" component={Order} />
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />
                         <Route path="/admin" component={BoardAdmin} />
