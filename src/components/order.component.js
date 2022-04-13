@@ -45,47 +45,47 @@ export default class Order extends Component{
     }
     onChangesenderName(e) {
         this.setState({
-            username: e.target.value
+            senderName: e.target.value
         });
     }
     onChangesenderPhonenumber(e) {
         this.setState({
-            username: e.target.value
+            senderPhonenumber: e.target.value
         });
     }
     onChangesenderAddress(e) {
         this.setState({
-            username: e.target.value
+            senderAddress: e.target.value
         });
     }
     onChangereceiverName(e) {
         this.setState({
-            username: e.target.value
+            receiverName: e.target.value
         });
     }
     onChangereceiverPhonenumber(e) {
         this.setState({
-            username: e.target.value
+            receiverPhonenumber: e.target.value
         });
     }
     onChangereceiverAddress(e) {
         this.setState({
-            username: e.target.value
+            receiverAddress: e.target.value
         });
     }
     onChangeproductType(e) {
         this.setState({
-            username: e.target.value
+            productType: e.target.value
         });
     }
     onChangeproductWeight(e) {
         this.setState({
-            username: e.target.value
+            productWeight: e.target.value
         });
     }
     onChangepickupTime(e) {
         this.setState({
-            username: e.target.value
+            pickupTime: e.target.value
         });
     }
     handleOrder(e) {
@@ -221,18 +221,22 @@ export default class Order extends Component{
 
                                 <div className="form-group">
                                     <label htmlFor="productType">productType</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
+                                    <select
                                         name="productType"
+                                        className="form-select"
                                         value={this.state.productType}
                                         onChange={this.onChangeproductType}
-                                        validations={[required]}
-                                    />
+                                        required>
+                                        <option value="document">Document</option>
+                                        <option value="eproducts">Electronic products</option>
+                                        <option value="clothing">Clothing</option>
+                                        <option value="others">Others</option>
+                                    </select>
+
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="productWeight">productWeight</label>
+                                    <label htmlFor="productWeight">productWeight(kg)</label>
                                     <Input
                                         type="text"
                                         className="form-control"

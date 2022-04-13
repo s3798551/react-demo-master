@@ -131,11 +131,11 @@ class App extends Component {
                                 </Link>
                             </li>
 
-                            {/*<li className="nav-item">*/}
-                            {/*    <Link to={"/order"} className="nav-link">*/}
-                            {/*        Order*/}
-                            {/*    </Link>*/}
-                            {/*</li>*/}
+                            <li className="nav-item">
+                                <Link to={"/order"} className="nav-link">
+                                    Order
+                                </Link>
+                            </li>
                         </div>
                     )}
                 </nav>
