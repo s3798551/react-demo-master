@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-datepicker/dist/react-datepicker.css";
 import "./App.css";
 
 import AuthService from "./services/auth.service";
@@ -125,11 +126,11 @@ class App extends Component {
                                 </Link>
                             </li>
 
-                            <li className="nav-item">
-                                <Link to={"/register"} className="nav-link">
-                                    Sign Up
-                                </Link>
-                            </li>
+                            {/*<li className="nav-item">*/}
+                            {/*    <Link to={"/register"} className="nav-link">*/}
+                            {/*        Sign Up*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
 
                             <li className="nav-item">
                                 <Link to={"/order"} className="nav-link">

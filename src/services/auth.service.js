@@ -30,7 +30,7 @@ class AuthService {
     });
   }
   order(senderName, senderPhonenumber, senderAddress, receiverName, receiverPhonenumber, receiverAddress,
-        productType, productWeight, pickupTime){
+        productType, productWeight, startDate, startTime){
     return axios.post(API_URL + "order",{
       senderName,
       senderPhonenumber,
@@ -40,7 +40,8 @@ class AuthService {
       receiverAddress,
       productType,
       productWeight,
-      pickupTime
+      startDate,
+      startTime
     })
   }
 

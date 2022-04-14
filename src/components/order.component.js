@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, {Component, useState} from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
+import DatePicker from "react-datepicker";
+
 import AuthService from "../services/auth.service";
+import {addDays, addMonths} from "date-fns";
 
 const required = value => {
     if (!value) {
@@ -14,6 +16,8 @@ const required = value => {
         );
     }
 };
+
+
 
 export default class Order extends Component{
     constructor(props) {
@@ -28,6 +32,8 @@ export default class Order extends Component{
         this.onChangeproductType = this.onChangeproductType.bind(this);
         this.onChangeproductWeight = this.onChangeproductWeight.bind(this);
         this.onChangepickupTime = this.onChangepickupTime.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+
 
         this.state = {
             senderName: "",
@@ -38,11 +44,19 @@ export default class Order extends Component{
             receiverAddress: "",
             productType: "",
             productWeight: "",
-            pickupTime: "",
+            startDate: new Date(),
+            startTime:"",
             successful: false,
             message: ""
         };
+
     }
+    handleChange(date) {
+        this.setState({
+            startDate: date
+        })
+    }
+
     onChangesenderName(e) {
         this.setState({
             senderName: e.target.value
@@ -88,6 +102,13 @@ export default class Order extends Component{
             pickupTime: e.target.value
         });
     }
+
+    onChangestartTime(e) {
+        this.setState({
+            pickupTime: e.target.value
+        });
+    }
+
     handleOrder(e) {
         e.preventDefault();
 
@@ -147,8 +168,9 @@ export default class Order extends Component{
                     >
                         {!this.state.successful && (
                             <div>
+                                <h3>Sender</h3>
                                 <div className="form-group">
-                                    <label htmlFor="senderName">senderName</label>
+                                    <label htmlFor="senderName">Name</label>
                                     <Input
                                         type="text"
                                         className="form-control"
@@ -160,7 +182,7 @@ export default class Order extends Component{
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="senderPhonenumber">senderPhonenumber</label>
+                                    <label htmlFor="senderPhonenumber">Phonenumber</label>
                                     <Input
                                         type="text"
                                         className="form-control"
@@ -172,7 +194,7 @@ export default class Order extends Component{
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="senderAddress">senderAddress</label>
+                                    <label htmlFor="senderAddress">Address</label>
                                     <Input
                                         type="text"
                                         className="form-control"
@@ -182,9 +204,10 @@ export default class Order extends Component{
                                         validations={[required]}
                                     />
                                 </div>
-
+                                <hr className="my-4"></hr>
+                                <h3>Receiver</h3>
                                 <div className="form-group">
-                                    <label htmlFor="receiverName">receiverName</label>
+                                    <label htmlFor="receiverName">Name</label>
                                     <Input
                                         type="text"
                                         className="form-control"
@@ -196,7 +219,7 @@ export default class Order extends Component{
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="receiverPhonenumber">receiverPhonenumber</label>
+                                    <label htmlFor="receiverPhonenumber">Phonenumber</label>
                                     <Input
                                         type="text"
                                         className="form-control"
@@ -208,7 +231,7 @@ export default class Order extends Component{
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="receiverAddress">receiverAddress</label>
+                                    <label htmlFor="receiverAddress">Address</label>
                                     <Input
                                         type="text"
                                         className="form-control"
@@ -218,9 +241,10 @@ export default class Order extends Component{
                                         validations={[required]}
                                     />
                                 </div>
-
+                                <hr className="my-4"></hr>
+                                <h3>Details</h3>
                                 <div className="form-group">
-                                    <label htmlFor="productType">productType</label>
+                                    <label htmlFor="productType">Product Type</label>
                                     <select
                                         name="productType"
                                         className="form-select"
@@ -236,7 +260,7 @@ export default class Order extends Component{
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="productWeight">productWeight(kg)</label>
+                                    <label htmlFor="productWeight">Product Weight (kg)</label>
                                     <Input
                                         type="text"
                                         className="form-control"
@@ -247,19 +271,44 @@ export default class Order extends Component{
                                     />
                                 </div>
 
+
                                 <div className="form-group">
-                                    <label htmlFor="pickupTime">pickupTime</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="pickupTime"
-                                        value={this.state.pickupTime}
-                                        onChange={this.onChangepickupTime}
-                                        validations={[required]}
+                                    <label htmlFor="startDate">Pickup date</label>
+                                    <DatePicker
+                                        selected={ this.state.startDate }
+                                        onChange={ this.handleChange }
+                                        minDate={new Date()}
+                                        maxDate={addDays(new Date(), 5)}
+                                        placeholderText="Select a date between today and 5 days in the future"
+                                        value={this.state.startDate}
+                                        name="startDate"
+                                        dateFormat="MM/dd/yyyy"
                                     />
+                                    <label htmlFor="startTime">Pickup time</label>
+                                    <select
+                                        name="startTime"
+                                        className="form-select"
+                                        value={this.state.startTime}
+                                        onChange={this.onChangestartTime}
+                                        required>
+                                        <option value="9-10">9:00am-10:00am</option>
+                                        <option value="10-11">10:00am-11:00am</option>
+                                        <option value="11-12">11:00am-12:00pm</option>
+                                        <option value="12-13">12:00pm-13:00pm</option>
+                                        <option value="13-14">13:00pm-14:00pm</option>
+                                        <option value="14-15">14:00pm-15:00pm</option>
+                                        <option value="15-16">15:00pm-16:00pm</option>
+                                        <option value="16-17">16:00pm-17:00pm</option>
+                                    </select>
                                 </div>
 
+                                <div className="form-group">
+                                <label htmlFor="returnLabel">Return Label</label>
+                                    <input type="file" />
 
+                                </div>
+
+                                <hr className="my-4"></hr>
                                 <div className="form-group">
                                     <button className="btn btn-primary btn-block">Submit</button>
                                 </div>
