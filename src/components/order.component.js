@@ -129,7 +129,8 @@ export default class Order extends Component{
                 this.state.receiverAddress,
                 this.state.productType,
                 this.state.productWeight,
-                this.state.pickupTime
+                this.state.startDate,
+                this.state.startTime
             ).then(
                 response => {
                     this.setState({
