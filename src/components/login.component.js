@@ -131,9 +131,10 @@ export default class Login extends Component {
                 <span>Login</span>
               </button>
               <br/>
-              <Link to="/register">
-              <span className="btn btn-primary btn-block">Sign up</span>
-              </Link>
+              <p>No account? <a href={"/register"}>Sign up</a> Now!</p>
+              {/*<Link to="/register">*/}
+              {/*<span className="btn btn-primary btn-block">Sign up</span>*/}
+              {/*</Link>*/}
             </div>
 
             {this.state.message && (
