@@ -17,99 +17,82 @@ const required = value => {
     }
 };
 
-
-
 export default class Order extends Component{
     constructor(props) {
         super(props);
-        this.handleOrder = this.handleOrder.bind(this);
-        this.onChangesenderName = this.onChangesenderName.bind(this);
-        this.onChangesenderPhonenumber = this.onChangesenderPhonenumber.bind(this);
-        this.onChangesenderAddress = this.onChangesenderAddress.bind(this);
-        this.onChangereceiverName = this.onChangereceiverName.bind(this);
-        this.onChangereceiverPhonenumber = this.onChangereceiverPhonenumber.bind(this);
-        this.onChangereceiverAddress = this.onChangereceiverAddress.bind(this);
-        this.onChangeproductType = this.onChangeproductType.bind(this);
-        this.onChangeproductWeight = this.onChangeproductWeight.bind(this);
-        this.onChangepickupTime = this.onChangepickupTime.bind(this);
         this.handleChange = this.handleChange.bind(this);
-
-
-        this.state = {
-            senderName: "",
-            senderPhonenumber: "",
-            senderAddress: "",
-            receiverName: "",
-            receiverPhonenumber: "",
-            receiverAddress: "",
-            productType: "",
-            productWeight: "",
-            startDate: new Date(),
-            startTime:"",
-            successful: false,
-            message: ""
-        };
-
     }
+
+    state = {
+        senderName: "",
+        senderPhonenumber: "",
+        senderAddress: "",
+        receiverName: "",
+        receiverPhonenumber: "",
+        receiverAddress: "",
+        productType: "",
+        productWeight: "",
+        startDate: new Date(),
+        startTime:"",
+        successful: false,
+        message: ""
+    };
+
     handleChange(date) {
         this.setState({
             startDate: date
         })
     }
 
-    onChangesenderName(e) {
+    onChangesenderName = (e) =>{
         this.setState({
             senderName: e.target.value
         });
     }
-    onChangesenderPhonenumber(e) {
+    onChangesenderPhonenumber = (e) =>{
         this.setState({
             senderPhonenumber: e.target.value
         });
     }
-    onChangesenderAddress(e) {
+    onChangesenderAddress = (e) =>{
         this.setState({
             senderAddress: e.target.value
         });
     }
-    onChangereceiverName(e) {
+    onChangereceiverName = (e) =>{
         this.setState({
             receiverName: e.target.value
         });
     }
-    onChangereceiverPhonenumber(e) {
+    onChangereceiverPhonenumber = (e) =>{
         this.setState({
             receiverPhonenumber: e.target.value
         });
     }
-    onChangereceiverAddress(e) {
+    onChangereceiverAddress = (e) =>{
         this.setState({
             receiverAddress: e.target.value
         });
     }
-    onChangeproductType(e) {
+    onChangeproductType = (e) =>{
         this.setState({
             productType: e.target.value
         });
     }
-    onChangeproductWeight(e) {
+    onChangeproductWeight = (e) =>{
         this.setState({
             productWeight: e.target.value
         });
     }
-    onChangepickupTime(e) {
+
+
+    onChangestartTime = (e) =>{
         this.setState({
-            pickupTime: e.target.value
+            startTime: e.target.value
         });
     }
 
-    onChangestartTime(e) {
-        this.setState({
-            pickupTime: e.target.value
-        });
-    }
-
-    handleOrder(e) {
+    handleOrder = (e) =>{
         e.preventDefault();
 
         this.setState({
@@ -341,8 +324,5 @@ export default class Order extends Component{
             </div>
         );
     }
-
-
-
 
 }

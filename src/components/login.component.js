@@ -17,33 +17,26 @@ const required = value => {
 };
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-
-    this.state = {
-      username: "",
-      password: "",
-      loading: false,
-      message: ""
-    };
+  state = {
+    username: "",
+    password: "",
+    loading: false,
+    message: ""
   }
 
-  onChangeUsername(e) {
+  onChangeUsername = (e)=>{
     this.setState({
       username: e.target.value
     });
   }
 
-  onChangePassword(e) {
+  onChangePassword = (e) =>{
     this.setState({
       password: e.target.value
     });
   }
 
-  handleLogin(e) {
+  handleLogin = (e) =>{
     e.preventDefault();
 
     this.setState({
