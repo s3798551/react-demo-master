@@ -34,6 +34,7 @@ export default class Order extends Component{
         productWeight: "",
         startDate: new Date(),
         startTime:"",
+        returnLabel: new FormData(),
         successful: false,
         message: ""
     };
@@ -94,6 +95,7 @@ export default class Order extends Component{
 
     handleOrder = (e) =>{
         e.preventDefault();
+        this.state.returnLabel.append('file', e.target.files[0])
 
         this.setState({
             message: "",
@@ -113,7 +115,8 @@ export default class Order extends Component{
                 this.state.productType,
                 this.state.productWeight,
                 this.state.startDate,
-                this.state.startTime
+                this.state.startTime,
+                this.state.returnLabel
             ).then(
                 response => {
                     this.setState({
@@ -345,7 +348,7 @@ export default class Order extends Component{
 
                                 <div className="form-group">
                                 <label htmlFor="returnLabel">Return Label</label>
-                                    <input type="file" />
+                                    <input type="file" id="file" name="file"/>
 
                                 </div>
                                         </div>
