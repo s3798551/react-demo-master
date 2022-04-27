@@ -142,8 +142,8 @@ export default class Order extends Component{
     render() {
         return (
             <div className="col-md-12">
-                <div className="card card-container">
-
+                <div>
+                    <h3 align="center">Order</h3>
                     <Form
                         onSubmit={this.handleOrder}
                         ref={c => {
@@ -151,81 +151,138 @@ export default class Order extends Component{
                         }}
                     >
                         {!this.state.successful && (
-                            <div>
-                                <h3>Sender</h3>
-                                <div className="form-group">
-                                    <label htmlFor="senderName">Name</label>
-                                    <Input
+
+
+                                <div className="col-md-12">
+                                    <div className="card card-container">
+
+                                <h3>Sender&emsp;&emsp;&emsp;&emsp;&emsp;
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Receiver</h3>
+                                        <label>Name</label>
+                                <div className="row">
+                                    {/*<label htmlFor="senderName">Name</label>*/}
+                                    &emsp;<Input
                                         type="text"
-                                        className="form-control"
+
+                                        className="col-md-auto"
                                         name="senderName"
                                         value={this.state.senderName}
                                         onChange={this.onChangesenderName}
                                         validations={[required]}
                                     />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="senderPhonenumber">Phonenumber</label>
+                                    {/*<label htmlFor="receiverName">Name</label>*/}
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                    &emsp;&emsp;&emsp;
                                     <Input
                                         type="text"
-                                        className="form-control"
-                                        name="senderPhonenumber"
-                                        value={this.state.senderPhonenumber}
-                                        onChange={this.onChangesenderPhonenumber}
-                                        validations={[required]}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="senderAddress">Address</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="senderAddress"
-                                        value={this.state.senderAddress}
-                                        onChange={this.onChangesenderAddress}
-                                        validations={[required]}
-                                    />
-                                </div>
-                                <hr className="my-4"></hr>
-                                <h3>Receiver</h3>
-                                <div className="form-group">
-                                    <label htmlFor="receiverName">Name</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
+                                        className="col-md-auto"
                                         name="receiverName"
                                         value={this.state.receiverName}
                                         onChange={this.onChangereceiverName}
                                         validations={[required]}
                                     />
-                                </div>
 
-                                <div className="form-group">
-                                    <label htmlFor="receiverPhonenumber">Phonenumber</label>
+
+                                </div>
+                                        {/*<div className="form-group">*/}
+                                        {/*    <label htmlFor="receiverName">Name</label>*/}
+                                        {/*    <Input*/}
+                                        {/*        type="text"*/}
+                                        {/*        className="col-auto"*/}
+                                        {/*        name="receiverName"*/}
+                                        {/*        value={this.state.receiverName}*/}
+                                        {/*        onChange={this.onChangereceiverName}*/}
+                                        {/*        validations={[required]}*/}
+                                        {/*    />*/}
+                                        {/*</div>*/}
+                                        <label>Phonenumber</label>
+                                <div className="row">
+                                    {/*<label htmlFor="senderPhonenumber">Phonenumber</label>*/}
+                                    &emsp;<Input
+                                        type="text"
+                                        className="col-md-auto"
+                                        name="senderPhonenumber"
+                                        value={this.state.senderPhonenumber}
+                                        onChange={this.onChangesenderPhonenumber}
+                                        validations={[required]}
+                                    />
+                                    {/*<label htmlFor="receiverPhonenumber">Phonenumber</label>*/}
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                    &emsp;&emsp;&emsp;
                                     <Input
                                         type="text"
-                                        className="form-control"
+                                        className="col-md-auto"
                                         name="receiverPhonenumber"
                                         value={this.state.receiverPhonenumber}
                                         onChange={this.onChangereceiverPhonenumber}
                                         validations={[required]}
                                     />
                                 </div>
+                                        <label>Address</label>
+                                <div className="row">
+                                    {/*<label htmlFor="senderAddress">Address</label>*/}
+                                    &emsp;<Input
+                                        type="text"
+                                        className="col-md-auto"
+                                        name="senderAddress"
+                                        value={this.state.senderAddress}
+                                        onChange={this.onChangesenderAddress}
+                                        validations={[required]}
+                                    />
 
-                                <div className="form-group">
-                                    <label htmlFor="receiverAddress">Address</label>
+                                    {/*<label htmlFor="receiverAddress">Address</label>*/}
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                    &emsp;&emsp;&emsp;
                                     <Input
                                         type="text"
-                                        className="form-control"
+                                        className="col-md-auto"
                                         name="receiverAddress"
                                         value={this.state.receiverAddress}
                                         onChange={this.onChangereceiverAddress}
                                         validations={[required]}
                                     />
                                 </div>
+
+                                        </div>
                                 <hr className="my-4"></hr>
+                                {/*<h3>Receiver</h3>*/}
+                                {/*<div className="form-group">*/}
+                                {/*    <label htmlFor="receiverName">Name</label>*/}
+                                {/*    <Input*/}
+                                {/*        type="text"*/}
+                                {/*        className="col-auto"*/}
+                                {/*        name="receiverName"*/}
+                                {/*        value={this.state.receiverName}*/}
+                                {/*        onChange={this.onChangereceiverName}*/}
+                                {/*        validations={[required]}*/}
+                                {/*    />*/}
+                                {/*</div>*/}
+
+                                {/*<div className="form-group">*/}
+                                {/*    <label htmlFor="receiverPhonenumber">Phonenumber</label>*/}
+                                {/*    <Input*/}
+                                {/*        type="text"*/}
+                                {/*        className="col-auto"*/}
+                                {/*        name="receiverPhonenumber"*/}
+                                {/*        value={this.state.receiverPhonenumber}*/}
+                                {/*        onChange={this.onChangereceiverPhonenumber}*/}
+                                {/*        validations={[required]}*/}
+                                {/*    />*/}
+                                {/*</div>*/}
+
+                                {/*<div className="form-group">*/}
+                                {/*    <label htmlFor="receiverAddress">Address</label>*/}
+                                {/*    <Input*/}
+                                {/*        type="text"*/}
+                                {/*        className="col-auto"*/}
+                                {/*        name="receiverAddress"*/}
+                                {/*        value={this.state.receiverAddress}*/}
+                                {/*        onChange={this.onChangereceiverAddress}*/}
+                                {/*        validations={[required]}*/}
+                                {/*    />*/}
+                                {/*</div>*/}
+                                    <div className="col-md-12">
+                                        <div className="card card-container">
                                 <h3>Details</h3>
                                 <div className="form-group">
                                     <label htmlFor="productType">Product Type</label>
@@ -291,7 +348,8 @@ export default class Order extends Component{
                                     <input type="file" />
 
                                 </div>
-
+                                        </div>
+                                    </div>
                                 <hr className="my-4"></hr>
                                 <div className="form-group">
                                     <button className="btn btn-primary btn-block">Submit</button>
