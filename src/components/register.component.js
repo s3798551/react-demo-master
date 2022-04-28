@@ -182,6 +182,8 @@ export default class Register extends Component {
                   }
                   role="alert"
                 >
+                  <a href={'/details'}>aasss</a>
+                  <a>sssss</a>
                   {this.state.message}
                 </div>
               </div>

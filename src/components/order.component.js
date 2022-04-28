@@ -24,17 +24,18 @@ export default class Order extends Component{
     }
 
     state = {
+        id: "",
         senderName: "",
         senderPhonenumber: "",
         senderAddress: "",
         receiverName: "",
         receiverPhonenumber: "",
         receiverAddress: "",
-        productType: "",
+        productType: "Document",
         productWeight: "",
         startDate: new Date(),
-        startTime:"",
-        returnLabel: new FormData(),
+        startTime:"9-10",
+        returnLabel: new File([], "", undefined),
         successful: false,
         message: ""
     };
@@ -95,7 +96,14 @@ export default class Order extends Component{
 
     handleOrder = (e) =>{
         e.preventDefault();
-        this.state.returnLabel.append('file', e.target.files[0])
+        // let file1 = document.querySelector('#file').files[0]
+        // let formdata = new FormData()
+        // // formdata.append("file", file1)
+        // formdata.append("111","sssss")
+
+        //this.state.returnLabel.append('file', document.getElementById("file").nodeValue)
+
+        // this.state.returnLabel.append('s',111)
 
         this.setState({
             message: "",
@@ -105,18 +113,35 @@ export default class Order extends Component{
         this.form.validateAll();
 
         if (this.checkBtn.context._errors.length === 0) {
+            this.state.returnLabel = document.querySelector(".file").files[0]
+            let formData = new FormData()
+            formData.append('senderName',this.state.senderName)
+            formData.append('senderPhonenumber',this.state.senderPhonenumber)
+            formData.append('senderAddress',this.state.senderAddress)
+            formData.append('receiverName',this.state.receiverName)
+            formData.append('receiverPhonenumber',this.state.receiverPhonenumber)
+            formData.append('receiverAddress',this.state.receiverAddress)
+            formData.append('productType',this.state.productType)
+            formData.append('productWeight',this.state.productWeight)
+            formData.append('startDate',this.state.startDate)
+            formData.append('startTime',this.state.startTime)
+            formData.append('returnLabel',this.state.returnLabel)
+
+            console.log(formData.get('senderName'))
+            console.log(formData.get('senderPhonenumber'))
+            console.log(formData.get('senderAddress'))
+            console.log(formData.get('receiverName'))
+            console.log(formData.get('receiverPhonenumber'))
+            console.log(formData.get('receiverAddress'))
+            console.log(formData.get('productType'))
+            console.log(formData.get('productWeight'))
+            console.log(formData.get('startDate'))
+            console.log(formData.get('startTime'))
+            console.log(formData.get('returnLabel'))
+
+
             AuthService.order(
-                this.state.senderName,
-                this.state.senderPhonenumber,
-                this.state.senderAddress,
-                this.state.receiverName,
-                this.state.receiverPhonenumber,
-                this.state.receiverAddress,
-                this.state.productType,
-                this.state.productWeight,
-                this.state.startDate,
-                this.state.startTime,
-                this.state.returnLabel
+                formData
             ).then(
                 response => {
                     this.setState({
@@ -138,8 +163,9 @@ export default class Order extends Component{
                     });
                 }
             );
-        }
 
+
+        }
     }
 
     render() {
@@ -154,8 +180,6 @@ export default class Order extends Component{
                         }}
                     >
                         {!this.state.successful && (
-
-
                                 <div className="col-md-12">
                                     <div className="card card-container">
 
@@ -348,7 +372,7 @@ export default class Order extends Component{
 
                                 <div className="form-group">
                                 <label htmlFor="returnLabel">Return Label</label>
-                                    <input type="file" id="file" name="file"/>
+                                    <input type="file" id="file" name="file" className="file"/>
 
                                 </div>
                                         </div>
@@ -371,6 +395,8 @@ export default class Order extends Component{
                                     role="alert"
                                 >
                                     {this.state.message}
+                                    <br/>
+                                    <a href={'details'}>click here to track this order</a>
                                 </div>
                             </div>
                         )}

@@ -30,20 +30,9 @@ class AuthService {
     });
   }
 
-  order(senderName, senderPhonenumber, senderAddress, receiverName, receiverPhonenumber, receiverAddress,
-        productType, productWeight, startDate, startTime, returnLabel){
+  order(formData){
     return axios.post(API_URL + "order",{
-      senderName,
-      senderPhonenumber,
-      senderAddress,
-      receiverName,
-      receiverPhonenumber,
-      receiverAddress,
-      productType,
-      productWeight,
-      startDate,
-      startTime,
-      returnLabel
+      formData
     })
   }
 
