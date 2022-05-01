@@ -1,4 +1,5 @@
 import axios from "axios";
+import qs from "qs";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -39,6 +40,20 @@ class AuthService {
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));;
   }
+
+  getOrderList() {
+    const userID= this.getCurrentUser().id;
+    axios({
+      method: 'GET',
+      url: API_URL + 'orderList',
+      data: userID
+    }).then(res => {
+      return res;
+    })
+
+    return axios.get(API_URL + 'orderList',userID);
+  }
+
 }
 
 export default new AuthService();

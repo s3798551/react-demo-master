@@ -15,6 +15,7 @@ import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 import Details from "./components/details.component";
+import Track from "./components/track.compoent";
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
@@ -141,6 +142,12 @@ class App extends Component {
 
                             <li className="nav-item">
                                 <Link to={"/details"} className="nav-link">
+                                    Details
+                                </Link>
+                            </li>
+
+                            <li className="nav-item">
+                                <Link to={"/track"} className="nav-link">
                                     Track
                                 </Link>
                             </li>
@@ -159,6 +166,7 @@ class App extends Component {
                         <Route exact path="/profile" component={Profile} />
                         <Route exact path="/order" component={Order} />
                         <Route exact path="/details" component={Details} />
+                        <Route exact path="/track" component={Track} />
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />
                         <Route path="/admin" component={BoardAdmin} />
