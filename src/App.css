@@ -1,7 +1,9 @@
+@import '~antd/dist/antd.css';
+
 *{
 letter-spacing: 1px;
-
 }
+
 
 label {
   display: block;
