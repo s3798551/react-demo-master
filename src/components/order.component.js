@@ -25,6 +25,7 @@ export default class Order extends Component{
 
     state = {
         id: "",
+        orderID: "",
         senderName: "",
         senderPhonenumber: "",
         senderAddress: "",
@@ -123,21 +124,21 @@ export default class Order extends Component{
             formData.append('receiverAddress',this.state.receiverAddress)
             formData.append('productType',this.state.productType)
             formData.append('productWeight',this.state.productWeight)
-            formData.append('startDate',this.state.startDate)
+            formData.append('startDate',this.state.startDate.toLocaleString())
             formData.append('startTime',this.state.startTime)
             formData.append('returnLabel',this.state.returnLabel)
 
-            console.log(formData.get('senderName'))
-            console.log(formData.get('senderPhonenumber'))
-            console.log(formData.get('senderAddress'))
-            console.log(formData.get('receiverName'))
-            console.log(formData.get('receiverPhonenumber'))
-            console.log(formData.get('receiverAddress'))
-            console.log(formData.get('productType'))
-            console.log(formData.get('productWeight'))
-            console.log(formData.get('startDate'))
-            console.log(formData.get('startTime'))
-            console.log(formData.get('returnLabel'))
+            // console.log(formData.get('senderName'))
+            // console.log(formData.get('senderPhonenumber'))
+            // console.log(formData.get('senderAddress'))
+            // console.log(formData.get('receiverName'))
+            // console.log(formData.get('receiverPhonenumber'))
+            // console.log(formData.get('receiverAddress'))
+            // console.log(formData.get('productType'))
+            // console.log(formData.get('productWeight'))
+            // console.log(formData.get('startDate'))
+            // console.log(formData.get('startTime'))
+            // console.log(formData.get('returnLabel'))
 
 
             AuthService.order(

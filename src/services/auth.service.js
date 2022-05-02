@@ -32,9 +32,30 @@ class AuthService {
   }
 
   order(formData){
-    return axios.post(API_URL + "order",{
-      formData
+    console.log("yeeeeeeeeeeeeeeeeee")
+    console.log(formData.get('senderName'))
+    console.log(formData.get('senderPhonenumber'))
+    console.log(formData.get('senderAddress'))
+    console.log(formData.get('receiverName'))
+    console.log(formData.get('receiverPhonenumber'))
+    console.log(formData.get('receiverAddress'))
+    console.log(formData.get('productType'))
+    console.log(formData.get('productWeight'))
+    console.log(formData.get('startDate'))
+    console.log(formData.get('startTime'))
+    console.log(formData.get('returnLabel'))
+    console.log("asdasdadasdadas")
+
+    return axios({
+      method: 'POST',
+      url: API_URL + 'orders/create',
+      contentType: "application/json",
+      data: formData
     })
+
+    // return axios.post(API_URL + "orders/create",{
+    //   formData
+    // })
   }
 
   getCurrentUser() {
@@ -53,6 +74,11 @@ class AuthService {
 
     return axios.get(API_URL + 'orderList',userID);
   }
+
+  getOrderDetails(){
+
+  }
+
 
 }
 

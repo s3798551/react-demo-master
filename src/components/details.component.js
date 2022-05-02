@@ -41,7 +41,7 @@ export default class Details extends Component {
 
                 <Divider orientation="left">Status</Divider>
 
-                <Steps progressDot current={(this.state.process==1 || this.state.process==2)? 1 : this.state.process}>
+                <Steps progressDot current={(this.state.process ==1 || this.state.process==2)? 1 : this.state.process}>
                     <Step title="Waiting" />
                     <Step title="In Progress"/>
                     <Step title="Finished" />
