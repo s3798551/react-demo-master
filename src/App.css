@@ -1,7 +1,9 @@
+@import '~antd/dist/antd.css';
+
 *{
 letter-spacing: 1px;
-  font-style: italic;
 }
+
 
 label {
   display: block;
@@ -9,7 +11,7 @@ label {
 }
 
 .card-container.card {
-  max-width: 350px !important;
+  max-width: 750px !important;
   padding: 40px 40px;
 }
 

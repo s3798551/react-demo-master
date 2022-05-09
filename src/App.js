@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-datepicker/dist/react-datepicker.css";
 import "./App.css";
 
 import AuthService from "./services/auth.service";
@@ -9,9 +10,12 @@ import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
+import Order from "./components/order.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
+import Details from "./components/details.component";
+import Track from "./components/track.compoent";
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
@@ -101,6 +105,11 @@ class App extends Component {
                     {currentUser ? (
                         <div className="navbar-nav ml-auto">
                             <li className="nav-item">
+                                <a href="/order" className="nav-link">
+                                    Order
+                                </a>
+                            </li>
+                            <li className="nav-item">
                                 <Link to={"/profile"} className="nav-link">
                                     {currentUser.username}
                                 </Link>
@@ -119,11 +128,32 @@ class App extends Component {
                                 </Link>
                             </li>
 
+                            {/*<li className="nav-item">*/}
+                            {/*    <Link to={"/register"} className="nav-link">*/}
+                            {/*        Sign Up*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
+
                             <li className="nav-item">
-                                <Link to={"/register"} className="nav-link">
-                                    Sign Up
+                                <Link to={"/order"} className="nav-link">
+                                    Order now
                                 </Link>
                             </li>
+
+                            <li className="nav-item">
+                                <Link to={"/details"} className="nav-link">
+                                    Details
+                                </Link>
+                            </li>
+
+                            <li className="nav-item">
+                                <Link to={"/track"} className="nav-link">
+                                    Track
+                                </Link>
+                            </li>
+
+
+
                         </div>
                     )}
                 </nav>
@@ -134,9 +164,13 @@ class App extends Component {
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
                         <Route exact path="/profile" component={Profile} />
+                        <Route exact path="/order" component={Order} />
+                        <Route exact path="/details" component={Details} />
+                        <Route exact path="/track" component={Track} />
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />
                         <Route path="/admin" component={BoardAdmin} />
+
                     </Switch>
                 </div>
 

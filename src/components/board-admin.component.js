@@ -4,13 +4,9 @@ import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
 
 export default class BoardAdmin extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      content: ""
-    };
-  }
+  state = {
+    content: ""
+  };
 
   componentDidMount() {
     UserService.getAdminBoard().then(
