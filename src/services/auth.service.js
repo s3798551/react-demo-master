@@ -79,15 +79,13 @@ class AuthService {
     //   contentType: "application/json",
     //   data: formData
     // }
-    axios({
+    return axios({
       method: 'GET',
       url: API_URL + 'orders/getAll',
       contentType: "application/json",
       params:{
         userid : 12
       }
-    }).then( res=>{
-      console.log(res)
     })
     // return axios.get(API_URL + 'getAll',userID);
   }

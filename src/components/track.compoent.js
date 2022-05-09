@@ -15,18 +15,19 @@ export default class Track extends Component {
 
     componentDidMount() {
 
-        // AuthService.getOrderList().then(
-        //     response => {
-        //         this.setState({
-        //             message: response.data.message,
-        //             successful: true
-        //         });
-        //     },
-        //     error => {
-        //         console.log("error")
-        //     }
-        // );
-        AuthService.getOrderList()
+        AuthService.getOrderList().then(
+            response => {
+                console.log(response.data)
+                // this.setState({
+                //     message: response.data.message,
+                //     successful: true
+                // });
+            },
+            error => {
+                console.log("error")
+            }
+        );
+        // AuthService.getOrderList()
         // console.log(s)
         // console.log("error")
         // fetch(fakeDataUrl)
