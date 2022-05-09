@@ -63,16 +63,26 @@ class AuthService {
   }
 
   getOrderList() {
-    const userID= this.getCurrentUser().id;
+    // const userID= this.getCurrentUser().id;
+    let formData = new FormData()
+    formData.append('userid',12)
+    // return axios({
+    //   method: 'GET',
+    //   url: API_URL + 'orders/create',
+    //   contentType: "application/json",
+    //   data: formData
+    // }
     axios({
       method: 'GET',
-      url: API_URL + 'orderList',
-      data: userID
-    }).then(res => {
-      return res;
+      url: API_URL + 'orders/getAll',
+      contentType: "application/json",
+      params:{
+        userid : 12
+      }
+    }).then( res=>{
+      console.log(res)
     })
-
-    return axios.get(API_URL + 'orderList',userID);
+    // return axios.get(API_URL + 'getAll',userID);
   }
 
   getOrderDetails(){
