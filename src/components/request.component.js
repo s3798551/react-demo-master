@@ -1,11 +1,10 @@
 import { List, Button, Skeleton } from 'antd';
 import React, {Component} from "react";
-import AuthService from "../services/auth.service";
 
 const count = 3;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
-export default class Track extends Component {
+export default class Request extends Component {
     state = {
         initLoading: true,
         loading: false,
@@ -14,30 +13,15 @@ export default class Track extends Component {
     };
 
     componentDidMount() {
-
-        // AuthService.getOrderList().then(
-        //     response => {
-        //         this.setState({
-        //             message: response.data.message,
-        //             successful: true
-        //         });
-        //     },
-        //     error => {
-        //         console.log("error")
-        //     }
-        // );
-        AuthService.getOrderList()
-        // console.log(s)
-        // console.log("error")
-        // fetch(fakeDataUrl)
-        //     .then(res => res.json())
-        //     .then(res => {
-        //         this.setState({
-        //             initLoading: false,
-        //             data: res.results,
-        //             list: res.results,
-        //         });
-        //     });
+        fetch(fakeDataUrl)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    initLoading: false,
+                    data: res.results,
+                    list: res.results,
+                });
+            });
     }
 
     onLoadMore = () => {
