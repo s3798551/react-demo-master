@@ -15,6 +15,7 @@ import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 import Details from "./components/details.component";
+import Request from "./components/request.component";
 import Track from "./components/track.compoent";
 
 // import AuthVerify from "./common/auth-verify";
@@ -29,15 +30,18 @@ class App extends Component {
             showModeratorBoard: false,
             showAdminBoard: false,
             currentUser: undefined,
+            currentDriver:undefined,
         };
     }
 
     componentDidMount() {
         const user = AuthService.getCurrentUser();
+        const driver = AuthService.getCurrentDriver();
 
         if (user) {
             this.setState({
                 currentUser: user,
+                currentDriver:driver,
                 showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
                 showAdminBoard: user.roles.includes("ROLE_ADMIN"),
             });
@@ -58,11 +62,12 @@ class App extends Component {
             showModeratorBoard: false,
             showAdminBoard: false,
             currentUser: undefined,
+            currentDriver: undefined,
         });
     }
 
     render() {
-        const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+        const { currentUser, currentDriver, showModeratorBoard, showAdminBoard } = this.state;
 
         return (
             <div>
@@ -156,6 +161,31 @@ class App extends Component {
 
                         </div>
                     )}
+
+                    {currentDriver ? (
+                        <div className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <a href="/request" className="nav-link">
+                                    Requests
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <Link to={"/profile"} className="nav-link">
+                                    {currentDriver.username}
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <a href="/login" className="nav-link" onClick={this.logOut}>
+                                    LogOut
+                                </a>
+                            </li>
+                        </div>
+                    ) : (
+                        <div>
+
+                        </div>
+                    )}
+
                 </nav>
 
                 <div className="container mt-3">
@@ -167,6 +197,7 @@ class App extends Component {
                         <Route exact path="/order" component={Order} />
                         <Route exact path="/details" component={Details} />
                         <Route exact path="/track" component={Track} />
+                        <Route exact path="/request" component={Request} />
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />
                         <Route path="/admin" component={BoardAdmin} />

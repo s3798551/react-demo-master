@@ -4,7 +4,7 @@ import React, {Component} from "react";
 const count = 3;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
-export default class Track extends Component {
+export default class Request extends Component {
     state = {
         initLoading: true,
         loading: false,

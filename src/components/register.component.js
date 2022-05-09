@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, useState} from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
+import {Radio} from "antd";
+
 
 const required = value => {
   if (!value) {
@@ -47,13 +49,35 @@ const vpassword = value => {
 };
 
 export default class Register extends Component {
+
   state = {
     username: "",
     email: "",
     password: "",
+    phone: "",
+    role: 1,
     successful: false,
+    showElem: false,
     message: ""
   };
+
+
+  onChangeRole = (e) =>{
+    if(this.state.role === 1){
+      this.state.showElem = true;
+    }else{
+      this.state.showElem = false;
+    }
+    this.setState({
+      role: e.target.value,
+    });
+  }
+
+  onChangePhone = (e) =>{
+    this.setState({
+      phone: e.target.value
+    });
+  }
 
   onChangeUsername = (e) =>{
     this.setState({
@@ -87,7 +111,9 @@ export default class Register extends Component {
       AuthService.register(
         this.state.username,
         this.state.email,
-        this.state.password
+        this.state.password,
+          this.state.role,
+          this.state.phone
       ).then(
         response => {
           this.setState({
@@ -113,6 +139,7 @@ export default class Register extends Component {
   }
 
   render() {
+    const {showElem} = this.state;
     return (
       <div className="col-md-12">
         <div className="card card-container">
@@ -167,6 +194,33 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group">
+                  {
+                    this.state.showElem?(
+                        <div>
+                    <label htmlFor="phone">Phone number</label>
+                    <Input
+                    type="phone"
+                    className="form-control"
+                    name="phone"
+                    value={this.state.phone}
+                    onChange={this.onChangePhone}
+                    validations={[required]}
+                    />
+                  </div>
+                    ):null
+                  }
+                </div>
+
+                <div className="form-group">
+                  <Radio.Group name="role" defaultValue={1} value={this.state.role}
+                               onChange={this.onChangeRole}>
+                    <Radio value={1}>As a user </Radio>
+                    <Radio value={2}>As a driver</Radio>
+
+                  </Radio.Group>
+
+                </div>
+                <div className="form-group">
                   <button className="btn btn-primary btn-block">Sign Up</button>
                 </div>
               </div>
@@ -182,8 +236,6 @@ export default class Register extends Component {
                   }
                   role="alert"
                 >
-                  <a href={'/details'}>aasss</a>
-                  <a>sssss</a>
                   {this.state.message}
                 </div>
               </div>
