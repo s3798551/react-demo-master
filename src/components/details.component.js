@@ -1,38 +1,63 @@
 import React,{Component} from "react";
 import { Divider,Button, Row, Col, Descriptions, Steps, Badge} from 'antd';
+import AuthService from "../services/auth.service";
 
 const { Step } = Steps;
 
 export default class Details extends Component {
 
     state={
-        process: 2,
-        time : new Date()
+        process: 0,
+        time : new Date(),
+        orderDetail: []
+    }
+
+    componentDidMount() {
+
+        AuthService.getOrderDetails().then(
+            response => {
+                this.setState({orderDetail:response.data})
+                console.log(this.state.orderDetail)
+                // this.setState({
+                //     initLoading: false,
+                //     data: response.data,
+                //     list: response.data,
+                // });
+                // this.setState({
+                //     message: response.data.message,
+                //     successful: true
+                // });
+            },
+            error => {
+                console.log("error")
+            }
+        );
     }
 
     render() {
+        const {orderDetail} = this.state
         return (
             <div>
                 <Descriptions title="Order Info" bordered>
-                    <Descriptions.Item label="Sender Name">User1</Descriptions.Item>
-                    <Descriptions.Item label="Sender Phone" span={2} >1810000000</Descriptions.Item>
-                    <Descriptions.Item label="Address" span={3}> 18/33 LaTrobe St., VIC3000, Australia</Descriptions.Item>
+                    <Descriptions.Item label="Sender Name">{orderDetail.sender_name}</Descriptions.Item>
+                    <Descriptions.Item label="Sender Phone" span={2} >{orderDetail.sender_phone}</Descriptions.Item>
+                    <Descriptions.Item label="Address" span={3}> {orderDetail.sender_address}</Descriptions.Item>
 
-                    <Descriptions.Item label="Receiver Name">User2</Descriptions.Item>
-                    <Descriptions.Item label="Receiver Phone" span={2}>1810000000</Descriptions.Item>
-                    <Descriptions.Item label="Address" span={3}> 18/33 LaTrobe St., VIC3000, Australia</Descriptions.Item>
+                    <Descriptions.Item label="Receiver Name">{orderDetail.receiver_name}</Descriptions.Item>
+                    <Descriptions.Item label="Receiver Phone" span={2}>{orderDetail.receiver_phone}</Descriptions.Item>
+                    <Descriptions.Item label="Address" span={3}>{orderDetail.receiver_address}</Descriptions.Item>
 
-                    <Descriptions.Item label="Order time">2018-04-24 18:00:00</Descriptions.Item>
+                    <Descriptions.Item label="Order time">{orderDetail.pickup_date}</Descriptions.Item>
                     <Descriptions.Item label="Appointment No:" span={2}>
-                        CX12094148172941
+                        {orderDetail.id}
                     </Descriptions.Item>
                     <Descriptions.Item label="Status" span={3}>
                         {/*If complete, status = success, or = processing*/}
                         <Badge status="processing" text="Running" />
 
                     </Descriptions.Item>
-                    <Descriptions.Item label="Product Type">Cloth</Descriptions.Item>
-                    <Descriptions.Item label="Product Weight(kg)">2</Descriptions.Item>
+                    <Descriptions.Item label="Product Type">{orderDetail.product_type}</Descriptions.Item>
+                    <Descriptions.Item label="Product Weight(kg)">{orderDetail.product_weight}</Descriptions.Item>
                     <Descriptions.Item label="Price">$60.00</Descriptions.Item>
                     <Descriptions.Item label="Driver Name">Driver1</Descriptions.Item>
                     <Descriptions.Item label="Drive Phone">13718241781</Descriptions.Item>

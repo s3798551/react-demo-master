@@ -91,7 +91,17 @@ class AuthService {
   }
 
   getOrderDetails(){
+    // let formData = new FormData()
+    // formData.append('id',5)
 
+    return axios({
+      method: 'GET',
+      url: API_URL + 'orders/getOrder',
+      contentType: "application/json",
+      params:{
+        id : 5
+      }
+    })
   }
 
 

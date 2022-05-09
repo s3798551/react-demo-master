@@ -2,7 +2,7 @@ import { List, Button, Skeleton } from 'antd';
 import React, {Component} from "react";
 import AuthService from "../services/auth.service";
 
-const count = 3;
+const count = 5;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
 export default class Track extends Component {
@@ -11,13 +11,46 @@ export default class Track extends Component {
         loading: false,
         data: [],
         list: [],
+        orderList: []
     };
 
     componentDidMount() {
+        fetch(fakeDataUrl)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                // this.setState({
+                //     initLoading: false,
+                //     data: res.results,
+                //     list: res.results,
+                // });
+            });
+
+        // fetch("http://localhost:8080/api/auth/orders/getAll", {
+        //     method: 'get',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({ //在服务器端通过req.body.eid方式获取
+        //         eid: id
+        //     })
+        // }).then(res =>{
+        //     return res.json(); //不是用户需要的数据,通过return返回
+        // }).then(data =>{ //用户需要的数据
+        //     console.log(data.msg)
+        // }).catch(e =>{
+        //     console.log(e)
+        // })
 
         AuthService.getOrderList().then(
             response => {
-                console.log(response.data)
+                this.setState({orderList:response.data})
+                console.log(this.state.orderList)
+                this.setState({
+                    initLoading: false,
+                    data: response.data,
+                    list: response.data,
+                });
                 // this.setState({
                 //     message: response.data.message,
                 //     successful: true
@@ -27,18 +60,6 @@ export default class Track extends Component {
                 console.log("error")
             }
         );
-        // AuthService.getOrderList()
-        // console.log(s)
-        // console.log("error")
-        // fetch(fakeDataUrl)
-        //     .then(res => res.json())
-        //     .then(res => {
-        //         this.setState({
-        //             initLoading: false,
-        //             data: res.results,
-        //             list: res.results,
-        //         });
-        //     });
     }
 
     onLoadMore = () => {
@@ -69,7 +90,7 @@ export default class Track extends Component {
     };
 
     render() {
-        const { initLoading, loading, list } = this.state;
+        const { initLoading, loading, list, orderList } = this.state;
         const loadMore =
             !initLoading && !loading ? (
                 <div
@@ -89,17 +110,18 @@ export default class Track extends Component {
                 className="demo-loadmore-list"
                 loading={initLoading}
                 itemLayout="horizontal"
-                loadMore={loadMore}
+                // loadMore={loadMore}
                 dataSource={list}
-                renderItem={item => (
+                renderItem={order => (
                     <List.Item
-                        actions={[<a>Check</a>]}
+                        actions={[<a>Check</a>] }
                     >
-                        <Skeleton avatar title={false} loading={item.loading} active>
+                        <Skeleton avatar title={false} loading={order.loading} active>
+                        {/*<Skeleton avatar title={false}  active>*/}
                             <List.Item.Meta
                                 // avatar={<Avatar src={item.picture.large} />}
-                                title={<a href="/details">Appointment No</a>}
-                                description="Receiver Name: && Receiver Address: "
+                                title={<a href="/details">Appointment No. {order.id}</a>}
+                                description={ <p >Receiver name: {order.receiver_name}  Receiver address: {order.receiver_address}</p>}
                             />
                         </Skeleton>
                     </List.Item>
