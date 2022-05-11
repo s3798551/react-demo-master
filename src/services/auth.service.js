@@ -70,9 +70,7 @@ class AuthService {
   }
 
   getOrderList() {
-    // const userID= this.getCurrentUser().id;
-    let formData = new FormData()
-    formData.append('userid',12)
+    const userID= this.getCurrentUser().id
     // return axios({
     //   method: 'GET',
     //   url: API_URL + 'orders/create',
@@ -84,13 +82,13 @@ class AuthService {
       url: API_URL + 'orders/getAll',
       contentType: "application/json",
       params:{
-        userid : 12
+        userid : userID
       }
     })
     // return axios.get(API_URL + 'getAll',userID);
   }
 
-  getOrderDetails(){
+  getOrderDetails(orderID){
     // let formData = new FormData()
     // formData.append('id',5)
 
@@ -99,7 +97,7 @@ class AuthService {
       url: API_URL + 'orders/getOrder',
       contentType: "application/json",
       params:{
-        id : 5
+        id : orderID
       }
     })
   }

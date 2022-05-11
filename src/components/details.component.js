@@ -1,6 +1,6 @@
-import React,{Component} from "react";
-import { Divider,Button, Row, Col, Descriptions, Steps, Badge} from 'antd';
-import AuthService from "../services/auth.service";
+import React,{Component} from "react"
+import { Divider,Button, Row, Col, Descriptions, Steps, Badge} from 'antd'
+import AuthService from "../services/auth.service"
 
 const { Step } = Steps;
 
@@ -9,12 +9,22 @@ export default class Details extends Component {
     state={
         process: 0,
         time : new Date(),
+        orderID: 0,
         orderDetail: []
     }
 
     componentDidMount() {
+        // this.token = PubSub.subscribe('orderID',(msg,data)=>{
+        //     console.log(data.orderID)
+        //     console.log()
+        //     this.setState({orderID:data.orderID})
+        // })
+        // console.log(this.state.orderID)
+        var orderID
+        var localS = localStorage.getItem(orderID);
+        console.log(localS);
 
-        AuthService.getOrderDetails().then(
+        AuthService.getOrderDetails(localS).then(
             response => {
                 this.setState({orderDetail:response.data})
                 console.log(this.state.orderDetail)
@@ -32,6 +42,10 @@ export default class Details extends Component {
                 console.log("error")
             }
         );
+    }
+
+    componentWillUnmount() {
+        PubSub.unsubscribe(this.token)
     }
 
     render() {

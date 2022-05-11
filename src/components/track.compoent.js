@@ -15,16 +15,16 @@ export default class Track extends Component {
     };
 
     componentDidMount() {
-        fetch(fakeDataUrl)
-            .then(res => res.json())
-            .then(res => {
-                console.log(res)
-                // this.setState({
-                //     initLoading: false,
-                //     data: res.results,
-                //     list: res.results,
-                // });
-            });
+        // fetch(fakeDataUrl)
+        //     .then(res => res.json())
+        //     .then(res => {
+        //         console.log(res)
+        //         // this.setState({
+        //         //     initLoading: false,
+        //         //     data: res.results,
+        //         //     list: res.results,
+        //         // });
+        //     });
 
         // fetch("http://localhost:8080/api/auth/orders/getAll", {
         //     method: 'get',
@@ -62,6 +62,7 @@ export default class Track extends Component {
         );
     }
 
+
     onLoadMore = () => {
         this.setState({
             loading: true,
@@ -89,6 +90,13 @@ export default class Track extends Component {
             });
     };
 
+    renderOrderDetail = (e) =>{
+        var orderID
+        // PubSub.publish('orderID',{'orderID':e.target.id})
+        localStorage.setItem(orderID, e.target.id);
+        this.props.history.push("/details");
+        // window.location.reload();
+    }
     render() {
         const { initLoading, loading, list, orderList } = this.state;
         const loadMore =
@@ -101,7 +109,7 @@ export default class Track extends Component {
                         lineHeight: '32px',
                     }}
                 >
-                    <Button onClick={this.onLoadMore}>loading more</Button>
+                    {/*<Button onClick={this.onLoadMore}>loading more</Button>*/}
                 </div>
             ) : null;
 
@@ -114,13 +122,13 @@ export default class Track extends Component {
                 dataSource={list}
                 renderItem={order => (
                     <List.Item
-                        actions={[<a>Check</a>] }
+                        actions={[<a id={order.id} onClick={this.renderOrderDetail}>Check</a>] }
                     >
                         <Skeleton avatar title={false} loading={order.loading} active>
                         {/*<Skeleton avatar title={false}  active>*/}
                             <List.Item.Meta
                                 // avatar={<Avatar src={item.picture.large} />}
-                                title={<a href="/details">Appointment No. {order.id}</a>}
+                                title={<a id={order.id} onClick={this.renderOrderDetail}>Appointment No. {order.id}</a>}
                                 description={ <p >Receiver name: {order.receiver_name}  Receiver address: {order.receiver_address}</p>}
                             />
                         </Skeleton>

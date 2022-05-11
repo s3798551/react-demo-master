@@ -115,6 +115,11 @@ class App extends Component {
                                 </a>
                             </li>
                             <li className="nav-item">
+                                <Link to={"/track"} className="nav-link">
+                                    Track
+                                </Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link to={"/profile"} className="nav-link">
                                     {currentUser.username}
                                 </Link>
