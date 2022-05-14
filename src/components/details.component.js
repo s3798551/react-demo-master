@@ -44,9 +44,9 @@ export default class Details extends Component {
         );
     }
 
-    componentWillUnmount() {
-        PubSub.unsubscribe(this.token)
-    }
+    // componentWillUnmount() {
+    //     PubSub.unsubscribe(this.token)
+    // }
 
     render() {
         const {orderDetail} = this.state

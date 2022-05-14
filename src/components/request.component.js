@@ -1,7 +1,8 @@
 import { List, Button, Skeleton } from 'antd';
 import React, {Component} from "react";
+import AuthService from "../services/auth.service";
 
-const count = 3;
+const count = 5;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
 export default class Request extends Component {
@@ -10,19 +11,30 @@ export default class Request extends Component {
         loading: false,
         data: [],
         list: [],
+        orderList: []
     };
 
     componentDidMount() {
-        fetch(fakeDataUrl)
-            .then(res => res.json())
-            .then(res => {
+        AuthService.getOrderList().then(
+            response => {
+                this.setState({orderList:response.data})
+                console.log(this.state.orderList)
                 this.setState({
                     initLoading: false,
-                    data: res.results,
-                    list: res.results,
+                    data: response.data,
+                    list: response.data,
                 });
-            });
+                // this.setState({
+                //     message: response.data.message,
+                //     successful: true
+                // });
+            },
+            error => {
+                console.log("error")
+            }
+        );
     }
+
 
     onLoadMore = () => {
         this.setState({
@@ -51,8 +63,15 @@ export default class Request extends Component {
             });
     };
 
+    renderOrderDetail = (e) =>{
+        var orderID
+        // PubSub.publish('orderID',{'orderID':e.target.id})
+        localStorage.setItem(orderID, e.target.id);
+        this.props.history.push("/details");
+        // window.location.reload();
+    }
     render() {
-        const { initLoading, loading, list } = this.state;
+        const { initLoading, loading, list, orderList } = this.state;
         const loadMore =
             !initLoading && !loading ? (
                 <div
@@ -63,7 +82,7 @@ export default class Request extends Component {
                         lineHeight: '32px',
                     }}
                 >
-                    <Button onClick={this.onLoadMore}>loading more</Button>
+                    {/*<Button onClick={this.onLoadMore}>loading more</Button>*/}
                 </div>
             ) : null;
 
@@ -72,17 +91,18 @@ export default class Request extends Component {
                 className="demo-loadmore-list"
                 loading={initLoading}
                 itemLayout="horizontal"
-                loadMore={loadMore}
+                // loadMore={loadMore}
                 dataSource={list}
-                renderItem={item => (
+                renderItem={order => (
                     <List.Item
-                        actions={[<a>Check</a>]}
+                        actions={[<a id={order.id} onClick={this.renderOrderDetail}>Check</a>] }
                     >
-                        <Skeleton avatar title={false} loading={item.loading} active>
+                        <Skeleton avatar title={false} loading={order.loading} active>
+                            {/*<Skeleton avatar title={false}  active>*/}
                             <List.Item.Meta
                                 // avatar={<Avatar src={item.picture.large} />}
-                                title={<a href="/details">Appointment No</a>}
-                                description="Receiver Name: && Receiver Address: "
+                                title={<a id={order.id} onClick={this.renderOrderDetail}>Appointment No. {order.id}</a>}
+                                description={ <p >Receiver name: {order.receiver_name}  Receiver address: {order.receiver_address}</p>}
                             />
                         </Skeleton>
                     </List.Item>
