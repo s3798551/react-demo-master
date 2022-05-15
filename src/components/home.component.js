@@ -25,6 +25,12 @@ export default class Home extends Component {
         });
       }
     );
+
+    window.navigator.geolocation.getCurrentPosition(function (position) {
+        console.log(position.coords.latitude)
+        console.log(position.coords.longitude)
+    })
+
   }
 
   render() {
