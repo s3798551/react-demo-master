@@ -144,23 +144,23 @@ class App extends Component {
                             {/*    </Link>*/}
                             {/*</li>*/}
 
-                            <li className="nav-item">
-                                <Link to={"/order"} className="nav-link">
-                                    Order now
-                                </Link>
-                            </li>
+                            {/*<li className="nav-item">*/}
+                            {/*    <Link to={"/order"} className="nav-link">*/}
+                            {/*        Order now*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
 
-                            <li className="nav-item">
-                                <Link to={"/details"} className="nav-link">
-                                    Details
-                                </Link>
-                            </li>
+                            {/*<li className="nav-item">*/}
+                            {/*    <Link to={"/details"} className="nav-link">*/}
+                            {/*        Details*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
 
-                            <li className="nav-item">
-                                <Link to={"/track"} className="nav-link">
-                                    Track
-                                </Link>
-                            </li>
+                            {/*<li className="nav-item">*/}
+                            {/*    <Link to={"/track"} className="nav-link">*/}
+                            {/*        Track*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
 
 
 

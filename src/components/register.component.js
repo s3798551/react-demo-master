@@ -107,13 +107,12 @@ export default class Register extends Component {
 
     this.form.validateAll();
 
-    if (this.checkBtn.context._errors.length === 0) {
-      AuthService.register(
+    if (this.checkBtn.context._errors.length === 0 && this.state.role ===1) {
+      AuthService.userRegister(
         this.state.username,
         this.state.email,
         this.state.password,
-          this.state.role,
-          this.state.phone
+          this.state.role
       ).then(
         response => {
           this.setState({
@@ -134,6 +133,34 @@ export default class Register extends Component {
             message: resMessage
           });
         }
+      );
+    } else{
+      AuthService.driverRegister(
+          this.state.username,
+          this.state.email,
+          this.state.password,
+          this.state.role,
+          this.state.phone
+      ).then(
+          response => {
+            this.setState({
+              message: response.data.message,
+              successful: true
+            });
+          },
+          error => {
+            const resMessage =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            this.setState({
+              successful: false,
+              message: resMessage
+            });
+          }
       );
     }
   }

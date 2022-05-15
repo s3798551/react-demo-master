@@ -55,7 +55,7 @@ export default class Login extends Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      AuthService.login(this.state.username, this.state.password, this.state.role).then(
+      AuthService.login(this.state.username, this.state.password).then(
         () => {
           this.props.history.push("/profile");
           window.location.reload();
@@ -132,13 +132,8 @@ export default class Login extends Component {
                 <span>Login</span>
               </button>
               <br/>
-              <Radio.Group name="role" defaultValue={1} value={this.state.role}
-                           onChange={this.onChangeRole}>
-                <Radio value={1}>As a user </Radio>
-                <Radio value={2}>As a driver</Radio>
 
-              </Radio.Group>
-              <br/><br/>
+              <br/>
               <p>No account? <a href={"/register"}>Sign up</a> Now!</p>
               {/*<Link to="/register">*/}
               {/*<span className="btn btn-primary btn-block">Sign up</span>*/}

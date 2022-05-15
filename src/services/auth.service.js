@@ -4,12 +4,11 @@ import qs from "qs";
 const API_URL = "http://localhost:8080/api/auth/";
 
 class AuthService {
-  login(username, password, role) {
+  login(username, password) {
     return axios
       .post(API_URL + "signin", {
         username,
-        password,
-        role
+        password
       })
       .then(response => {
         if (response.data.accessToken) {
@@ -24,13 +23,23 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register(username, email, password, role, phone) {
+  driverRegister(username, email, password, role, phone) {
+    console.log(username, email, password, role, phone)
     return axios.post(API_URL + "signup", {
       username,
       email,
       password,
       role,
       phone
+    });
+  }
+
+  userRegister(username,email,password,role){
+    return axios.post(API_URL + "signup", {
+      username,
+      email,
+      password,
+      role
     });
   }
 
