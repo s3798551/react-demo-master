@@ -1,11 +1,12 @@
 import { List, Button, Skeleton } from 'antd';
 import React, {Component} from "react";
 import AuthService from "../services/auth.service";
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 const count = 5;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
-export default class Request extends Component {
+export default class Track extends Component {
     state = {
         initLoading: true,
         loading: false,
@@ -15,53 +16,26 @@ export default class Request extends Component {
     };
 
     componentDidMount() {
-        AuthService.getOrderList().then(
-            response => {
-                this.setState({orderList:response.data})
-                console.log(this.state.orderList)
-                this.setState({
-                    initLoading: false,
-                    data: response.data,
-                    list: response.data,
-                });
-                // this.setState({
-                //     message: response.data.message,
-                //     successful: true
-                // });
-            },
-            error => {
-                console.log("error")
-            }
-        );
+        // AuthService.getOrderList().then(
+        //     response => {
+        //         this.setState({orderList:response.data})
+        //         console.log(this.state.orderList)
+        //         this.setState({
+        //             initLoading: false,
+        //             data: response.data,
+        //             list: response.data,
+        //         });
+        //         // this.setState({
+        //         //     message: response.data.message,
+        //         //     successful: true
+        //         // });
+        //     },
+        //     error => {
+        //         console.log("error")
+        //     }
+        // );
     }
 
-
-    // onLoadMore = () => {
-    //     this.setState({
-    //         loading: true,
-    //         list: this.state.data.concat(
-    //             [...new Array(count)].map(() => ({ loading: true, name: {}, picture: {} })),
-    //         ),
-    //     });
-    //     fetch(fakeDataUrl)
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             const data = this.state.data.concat(res.results);
-    //             this.setState(
-    //                 {
-    //                     data,
-    //                     list: data,
-    //                     loading: false,
-    //                 },
-    //                 () => {
-    //                     // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-    //                     // In real scene, you can using public method of react-virtualized:
-    //                     // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-    //                     // window.dispatchEvent(new Event('resize'));
-    //                 },
-    //             );
-    //         });
-    // };
 
     renderOrderDetail = (e) =>{
         var orderID
@@ -70,6 +44,7 @@ export default class Request extends Component {
         this.props.history.push("/details");
         // window.location.reload();
     }
+
     render() {
         const { initLoading, loading, list, orderList } = this.state;
         const loadMore =

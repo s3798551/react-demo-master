@@ -20,6 +20,7 @@ import Track from "./components/track.compoent";
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+import RequestDetail from "./components/requestDetail.component";
 
 class App extends Component {
     constructor(props) {
@@ -227,6 +228,7 @@ class App extends Component {
                         <Route exact path="/details" component={Details} />
                         <Route exact path="/track" component={Track} />
                         <Route exact path="/request" component={Request} />
+                        <Route exact path="/requestDetail" component={RequestDetail} />
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />
                         <Route path="/admin" component={BoardAdmin} />

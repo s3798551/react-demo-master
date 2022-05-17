@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { geolocated } from "react-geolocated";
 import Geocode from "react-geocode";
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
-
 import UserService from "../services/user.service";
-
 
 export default class Home extends Component {
 
@@ -35,7 +33,7 @@ export default class Home extends Component {
     })
 
       Geocode.setApiKey("AIzaSyB67UGk6WyvsTogwlQ2TRblvexVXz6Qouc");
-      Geocode.fromAddress("Eiffel Tower").then(
+      Geocode.fromAddress("18/33 LaTrobe Street").then(
           (response) => {
               const { lat, lng } = response.results[0].geometry.location;
               console.log(lat, lng);
