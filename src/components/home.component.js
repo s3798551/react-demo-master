@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { geolocated } from "react-geolocated";
 import Geocode from "react-geocode";
-import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import UserService from "../services/user.service";
 
 export default class Home extends Component {

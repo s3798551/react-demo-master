@@ -17,6 +17,10 @@ import BoardAdmin from "./components/board-admin.component";
 import Details from "./components/details.component";
 import Request from "./components/request.component";
 import Track from "./components/track.compoent";
+import History from "./components/history.component";
+import Process from "./components/process.component";
+import RequestDetail from "./components/requestDetail.component";
+
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
@@ -229,6 +233,9 @@ class App extends Component {
                         <Route exact path="/track" component={Track} />
                         <Route exact path="/request" component={Request} />
                         <Route exact path="/requestDetail" component={RequestDetail} />
+                        <Route exact path="/history" component={History} />
+                        <Route exact path="/process" component={Process} />
+
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />
                         <Route path="/admin" component={BoardAdmin} />
