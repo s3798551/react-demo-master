@@ -85,6 +85,10 @@ class AuthService {
     return JSON.parse(localStorage.getItem('driver'));;
   }
 
+  getCurrentRole(){
+    return localStorage.getItem('role');
+  }
+
   getOrderList() {
     const userID= this.getCurrentUser().id
     // return axios({

@@ -5,41 +5,45 @@ import AuthService from "../services/auth.service";
 export default class Profile extends Component {
   state = {
     redirect: null,
-    userReady: false,
-    information : { username:  "" , roles : ""}
+    Ready: false,
+    currentIdentity: null
     // currentUser: { username:  "" , roles : ""}
   };
 
   componentDidMount() {
-    const currentUser = AuthService.getCurrentUser();
+    const role = AuthService.getCurrentRole();
+    if(role === 'user'){
+      this.setState( {currentIdentity : AuthService.getCurrentUser() });
+    }else if (role === 'driver'){
+      this.setState( {currentIdentity : AuthService.getCurrentDriver() });
+    }
 
-    if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true })
+    this.setState({ Ready: true })
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
+    // if (this.state.redirect) {
+    //   return <Redirect to={this.state.redirect} />
+    // }
 
-    const { currentUser } = this.state;
+    const { currentIdentity } = this.state;
 
     return (
       <div className="container">
-        {(this.state.userReady) ?
+        {(this.state.Ready) ?
         <div>
         <header className="jumbotron">
           <h3>
-            <strong>{currentUser.username} , The role is {currentUser.roles} </strong> Profile
+            <strong>{currentIdentity.username} , The role is {currentIdentity.roles} </strong>
           </h3>
         </header>
         <p>
           <strong>Id:</strong>{" "}
-          {currentUser.id}
+          {currentIdentity.id}
         </p>
         <p>
           <strong>Email:</strong>{" "}
-          {currentUser.email}
+          {currentIdentity.email}
         </p>
 
       </div>: null}
