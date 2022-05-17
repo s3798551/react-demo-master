@@ -37,14 +37,19 @@ class App extends Component {
     componentDidMount() {
         const user = AuthService.getCurrentUser();
         const driver = AuthService.getCurrentDriver();
+        console.log(user)
+        console.log(driver)
 
         if (user) {
             this.setState({
                 currentUser: user,
-                currentDriver:driver,
                 showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
                 showAdminBoard: user.roles.includes("ROLE_ADMIN"),
             });
+        }else if (driver){
+            this.setState({
+                currentDriver: driver
+            })
         }
 
         EventBus.on("logout", () => {
@@ -105,9 +110,17 @@ class App extends Component {
                                 </Link>
                             </li>
                         )}
+
+                        {currentDriver && (
+                            <li className="nav-item">
+                                <Link to={"/user"} className="nav-link">
+                                    Driver
+                                </Link>
+                            </li>
+                        )}
                     </div>
 
-                    {currentUser ? (
+                    {currentUser? (
                         <div className="navbar-nav ml-auto">
                             <li className="nav-item">
                                 <a href="/order" className="nav-link">
@@ -131,41 +144,39 @@ class App extends Component {
                             </li>
                         </div>
                     ) : (
-                        <div className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link to={"/login"} className="nav-link">
-                                    Login
-                                </Link>
-                            </li>
+                        <div></div>
+                        // <div className="navbar-nav ml-auto">
+                        //     <li className="nav-item">
+                        //         <Link to={"/login"} className="nav-link">
+                        //             Login
+                        //         </Link>
+                        //     </li>
 
-                            {/*<li className="nav-item">*/}
-                            {/*    <Link to={"/register"} className="nav-link">*/}
-                            {/*        Sign Up*/}
-                            {/*    </Link>*/}
-                            {/*</li>*/}
-
-                            {/*<li className="nav-item">*/}
-                            {/*    <Link to={"/order"} className="nav-link">*/}
-                            {/*        Order now*/}
-                            {/*    </Link>*/}
-                            {/*</li>*/}
-
-                            {/*<li className="nav-item">*/}
-                            {/*    <Link to={"/details"} className="nav-link">*/}
-                            {/*        Details*/}
-                            {/*    </Link>*/}
-                            {/*</li>*/}
-
-                            {/*<li className="nav-item">*/}
-                            {/*    <Link to={"/track"} className="nav-link">*/}
-                            {/*        Track*/}
-                            {/*    </Link>*/}
-                            {/*</li>*/}
-
-
-
-                        </div>
-                    )}
+                            // <li className="nav-item">
+                            //     <Link to={"/register"} className="nav-link">
+                            //         Sign Up
+                            //     </Link>
+                            // </li>
+                            //
+                            // <li className="nav-item">
+                            //     <Link to={"/order"} className="nav-link">
+                            //         Order now
+                            //     </Link>
+                            // </li>
+                            //
+                            // <li className="nav-item">
+                            //     <Link to={"/details"} className="nav-link">
+                            //         Details
+                            //     </Link>
+                            // </li>
+                            //
+                            // <li className="nav-item">
+                            //     <Link to={"/track"} className="nav-link">
+                            //         Track
+                            //     </Link>
+                            // </li>
+                        // </div>
+                        )}
 
                     {currentDriver ? (
                         <div className="navbar-nav ml-auto">
@@ -189,6 +200,19 @@ class App extends Component {
                         <div>
 
                         </div>
+                    )}
+
+                    {currentDriver || currentUser ? (
+                        <div></div>
+                                ) : (
+                        <div className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <Link to={"/login"} className="nav-link">
+                                    Login
+                                </Link>
+                            </li>
+                        </div>
+
                     )}
 
                 </nav>

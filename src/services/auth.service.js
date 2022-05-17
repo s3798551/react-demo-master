@@ -12,7 +12,13 @@ class AuthService {
       })
       .then(response => {
         if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          if (response.data.roles[0] === 'ROLE_USER'){
+            localStorage.setItem("user", JSON.stringify(response.data));
+            localStorage.setItem("role","user");
+          }else if(response.data.roles[0] === 'ROLE_DRIVER'){
+            localStorage.setItem("driver", JSON.stringify(response.data));
+            localStorage.setItem("role","driver");
+          }
         }
 
         return response.data;
@@ -21,6 +27,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem("user");
+    localStorage.removeItem("driver");
   }
 
   driverRegister(username, email, password, role, phone) {

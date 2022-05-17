@@ -6,7 +6,8 @@ export default class Profile extends Component {
   state = {
     redirect: null,
     userReady: false,
-    currentUser: { username: "" }
+    information : { username:  "" , roles : ""}
+    // currentUser: { username:  "" , roles : ""}
   };
 
   componentDidMount() {
@@ -29,7 +30,7 @@ export default class Profile extends Component {
         <div>
         <header className="jumbotron">
           <h3>
-            <strong>{currentUser.username}</strong> Profile
+            <strong>{currentUser.username} , The role is {currentUser.roles} </strong> Profile
           </h3>
         </header>
         <p>
