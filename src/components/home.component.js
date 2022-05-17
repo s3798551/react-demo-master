@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { geolocated } from "react-geolocated";
+import Geocode from "react-geocode";
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 import UserService from "../services/user.service";
+
 
 export default class Home extends Component {
 
@@ -32,13 +34,16 @@ export default class Home extends Component {
         console.log(position.coords.longitude)
     })
 
-
-      // geocodeByAddress('Montevideo, Uruguay')
-      //     .then(results => getLatLng(results[0]))
-      //     .then(({ lat, lng }) =>
-      //         console.log('Successfully got latitude and longitude', { lat, lng })
-      //     );
-
+      Geocode.setApiKey("AIzaSyB67UGk6WyvsTogwlQ2TRblvexVXz6Qouc");
+      Geocode.fromAddress("Eiffel Tower").then(
+          (response) => {
+              const { lat, lng } = response.results[0].geometry.location;
+              console.log(lat, lng);
+          },
+          (error) => {
+              console.error(error);
+          }
+      );
   }
 
   render() {

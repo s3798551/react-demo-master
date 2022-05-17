@@ -1,6 +1,7 @@
 import { List, Button, Skeleton } from 'antd';
 import React, {Component} from "react";
 import AuthService from "../services/auth.service";
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 const count = 5;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
