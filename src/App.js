@@ -19,7 +19,7 @@ import Request from "./components/request.component";
 import Track from "./components/track.compoent";
 import History from "./components/history.component";
 import Process from "./components/process.component";
-import RequestDetail from "./components/requestDetail.component";
+
 
 
 // import AuthVerify from "./common/auth-verify";

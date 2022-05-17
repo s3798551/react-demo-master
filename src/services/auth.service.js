@@ -121,7 +121,17 @@ class AuthService {
       }
     })
   }
+  getWaitingOrderList() {
+    return axios({
+      method: 'GET',
+      url: API_URL + 'orders/getAllWaitingOrders',
+      contentType: "application/json",
+      params:{
 
+      }
+    })
+    // return axios.get(API_URL + 'getAll',userID);
+  }
 
 }
 
