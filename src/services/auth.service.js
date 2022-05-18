@@ -121,7 +121,7 @@ class AuthService {
       }
     })
   }
-  getWaitingOrderList() {
+  getWaitingOrder() {
     return axios({
       method: 'GET',
       url: API_URL + 'orders/getAllWaitingOrders',

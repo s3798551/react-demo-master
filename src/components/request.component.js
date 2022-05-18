@@ -33,16 +33,28 @@ export default class Track extends Component {
         //         console.log("error")
         //     }
         // );
+        AuthService.getWaitingOrder().then(
+            response => {
+                this.setState({orderList:response.data})
+                console.log(this.state.orderList)
+                this.setState({
+                    initLoading: false,
+                    data: response.data,
+                    list: response.data,
+                });
+                // this.setState({
+                //     message: response.data.message,
+                //     successful: true
+                // });
+            },
+            error => {
+                console.log("error")
+            }
+        );
     }
 
 
-    renderOrderDetail = (e) =>{
-        var orderID
-        // PubSub.publish('orderID',{'orderID':e.target.id})
-        localStorage.setItem(orderID, e.target.id);
-        this.props.history.push("/details");
-        // window.location.reload();
-    }
+
 
     render() {
         const { initLoading, loading, list, orderList } = this.state;
@@ -75,8 +87,9 @@ export default class Track extends Component {
                             {/*<Skeleton avatar title={false}  active>*/}
                             <List.Item.Meta
                                 // avatar={<Avatar src={item.picture.large} />}
-                                title={<a id={order.id} onClick={this.renderOrderDetail}>Appointment No. {order.id}</a>}
-                                description={ <p >Receiver name: {order.receiver_name}  Receiver address: {order.receiver_address}</p>}
+                                title={<a id={order.id}>Appointment No. {order.id}</a>}
+                                description={ <p >Address: {order.sender_address}  Appointment Time: {order.pickup_date}
+                                    {order.pickup_time}</p>}
                             />
                         </Skeleton>
                     </List.Item>
