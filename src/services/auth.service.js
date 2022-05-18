@@ -124,13 +124,31 @@ class AuthService {
   getWaitingOrder() {
     return axios({
       method: 'GET',
-      url: API_URL + 'orders/getAllWaitingOrders',
+      url: API_URL + 'orders/getWaitingOrder',
       contentType: "application/json",
       params:{
 
       }
     })
     // return axios.get(API_URL + 'getAll',userID);
+  }
+
+  acceptOrder(orderID, driverID){
+    return axios.post(API_URL + "orders/acceptOrder", {
+      orderID,
+      driverID
+    });
+  }
+
+  getDriverOrders(driverID){
+    return axios({
+      method: 'GET',
+      url: API_URL + 'orders/getDriverOrders',
+      contentType: "application/json",
+      params:{
+        id : driverID
+      }
+    })
   }
 
 }
