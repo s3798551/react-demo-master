@@ -15,9 +15,11 @@ export default class RequestDetail extends Component {
     };
 
     componentDidMount() {
-        // var orderID
-        // var localS = localStorage.getItem(orderID);
-        AuthService.getOrderDetails(6).then(
+        var orderID
+        var localS = localStorage.getItem(orderID);
+        console.log(localS);
+
+        AuthService.getOrderDetails(localS).then(
             response => {
                 this.setState({orderDetail:response.data})
                 console.log(this.state.orderDetail)

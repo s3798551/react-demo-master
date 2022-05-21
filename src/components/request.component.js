@@ -15,7 +15,7 @@ export default class Track extends Component {
     };
 
     componentDidMount() {
-        AuthService.getOrderList().then(
+        AuthService.getWaitingOrder().then(
             response => {
                 this.setState({orderList:response.data})
                 console.log(this.state.orderList)
@@ -37,35 +37,40 @@ export default class Track extends Component {
 
 
     renderOrderDetail = (e) =>{
-        var orderID
-        // PubSub.publish('orderID',{'orderID':e.target.id})
-        localStorage.setItem(orderID, e.target.id);
-        this.props.history.push("/details");
-        // window.location.reload();
+        AuthService.acceptOrder(
+            e.target.id
+        ).then(
+            response => {
+                this.setState({
+                    message: response.data.message,
+                });
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                this.setState({
+                    message: resMessage
+                });
+            }
+        );
+
+        // var orderID
+        // localStorage.setItem(orderID, e.target.id);
+        // this.props.history.push("/requestDetail");
     }
 
     render() {
         const { initLoading, loading, list, orderList } = this.state;
-        const loadMore =
-            !initLoading && !loading ? (
-                <div
-                    style={{
-                        textAlign: 'center',
-                        marginTop: 12,
-                        height: 32,
-                        lineHeight: '32px',
-                    }}
-                >
-                    {/*<Button onClick={this.onLoadMore}>loading more</Button>*/}
-                </div>
-            ) : null;
 
         return (
             <List
                 className="demo-loadmore-list"
                 loading={initLoading}
                 itemLayout="horizontal"
-                // loadMore={loadMore}
                 dataSource={list}
                 renderItem={order => (
                     <List.Item
@@ -75,8 +80,8 @@ export default class Track extends Component {
                             {/*<Skeleton avatar title={false}  active>*/}
                             <List.Item.Meta
                                 // avatar={<Avatar src={item.picture.large} />}
-                                title={<a id={order.id} onClick={this.renderOrderDetail}>Appointment No. {order.id}</a>}
-                                description={ <p >Receiver name: {order.receiver_name}  Receiver address: {order.receiver_address}</p>}
+                                title={<a id={order.id} onClick={this.renderOrderDetail}>{order.sender_address}</a>}
+                                description={ <p >Receiver address: {order.receiver_address}</p>}
                             />
                         </Skeleton>
                     </List.Item>

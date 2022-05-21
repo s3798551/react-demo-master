@@ -121,23 +121,37 @@ class AuthService {
       }
     })
   }
+
   getWaitingOrder() {
     return axios({
       method: 'GET',
       url: API_URL + 'orders/getWaitingOrder',
       contentType: "application/json",
-      params:{
-
-      }
+      // params:{
+      //
+      // }
     })
     // return axios.get(API_URL + 'getAll',userID);
   }
 
-  acceptOrder(orderID, driverID){
-    return axios.post(API_URL + "orders/acceptOrder", {
-      orderID,
+  acceptOrder(orderID){
+    const driverID= this.getCurrentDriver().id
+    console.log(orderID,driverID)
+    const id = parseInt(orderID)
+    return axios.put(API_URL + "orders/acceptOrder", {
+      id,
       driverID
     });
+    // return axios({
+    //   method: 'PUT',
+    //   url: API_URL + 'orders/acceptOrder',
+    //   contentType: "application/json",
+    //   params:{
+    //     orderID,
+    //     driverID
+    //   }
+    // })
+
   }
 
   getDriverOrders(driverID){
