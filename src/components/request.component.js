@@ -15,24 +15,24 @@ export default class Track extends Component {
     };
 
     componentDidMount() {
-        // AuthService.getOrderList().then(
-        //     response => {
-        //         this.setState({orderList:response.data})
-        //         console.log(this.state.orderList)
-        //         this.setState({
-        //             initLoading: false,
-        //             data: response.data,
-        //             list: response.data,
-        //         });
-        //         // this.setState({
-        //         //     message: response.data.message,
-        //         //     successful: true
-        //         // });
-        //     },
-        //     error => {
-        //         console.log("error")
-        //     }
-        // );
+        AuthService.getOrderList().then(
+            response => {
+                this.setState({orderList:response.data})
+                console.log(this.state.orderList)
+                this.setState({
+                    initLoading: false,
+                    data: response.data,
+                    list: response.data,
+                });
+                // this.setState({
+                //     message: response.data.message,
+                //     successful: true
+                // });
+            },
+            error => {
+                console.log("error")
+            }
+        );
     }
 
 

@@ -3,9 +3,12 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import DatePicker from "react-datepicker";
+import Geocode from "react-geocode";
+
 
 import AuthService from "../services/auth.service";
 import {addDays, addMonths} from "date-fns";
+import st from "react-datepicker";
 
 const required = value => {
     if (!value) {
@@ -36,6 +39,10 @@ export default class Order extends Component{
         productWeight: "",
         startDate: new Date(),
         startTime:"9-10",
+        longitude: 0,
+        latitude:0,
+        status:"waiting",
+        process:0,
         returnLabel: new File([], "", undefined),
         successful: false,
         message: ""
@@ -88,11 +95,22 @@ export default class Order extends Component{
         });
     }
 
-
     onChangestartTime = (e) =>{
         this.setState({
             startTime: e.target.value
         });
+    }
+
+
+    updateLatAndLng(longitude,latitude,formData){
+        this.setState({
+            longitude: longitude,
+            latitude: latitude
+        });
+        formData.append('longitude',longitude)
+        formData.append('latitude',latitude)
+        console.log(longitude,latitude)
+        console.log("update successfully!!!!!!")
     }
 
     handleOrder = (e) =>{
@@ -114,8 +132,29 @@ export default class Order extends Component{
         this.form.validateAll();
 
         if (this.checkBtn.context._errors.length === 0) {
-            this.state.returnLabel = document.querySelector(".file").files[0]
             let formData = new FormData()
+            this.state.returnLabel = document.querySelector(".file").files[0]
+            Geocode.setApiKey("AIzaSyB67UGk6WyvsTogwlQ2TRblvexVXz6Qouc");
+            Geocode.fromAddress(this.state.senderAddress).then(
+                (response) => {
+                    const { lat, lng } = response.results[0].geometry.location;
+                    // this.setState({
+                    //     longitude:response.results[0].geometry.location.lng,
+                    //     latitude:response.results[0].geometry.location.lat
+                    // })
+                    // this.updateLatAndLng(lng,lat,formData)
+                    // longitude = lng
+                    // latitude = lat
+                    // console.log(lat, lng);
+                    // formData.append('longitude',lng)
+                    // formData.append('latitude',lat)
+                },
+                (error) => {
+                    console.error(error);
+                }
+            );
+            formData.append('longitude',0)
+            formData.append('latitude',1)
             formData.append('senderName',this.state.senderName)
             formData.append('senderPhonenumber',this.state.senderPhonenumber)
             formData.append('senderAddress',this.state.senderAddress)
@@ -127,18 +166,8 @@ export default class Order extends Component{
             formData.append('startDate',this.state.startDate.toLocaleString())
             formData.append('startTime',this.state.startTime)
             formData.append('returnLabel',this.state.returnLabel)
-
-            // console.log(formData.get('senderName'))
-            // console.log(formData.get('senderPhonenumber'))
-            // console.log(formData.get('senderAddress'))
-            // console.log(formData.get('receiverName'))
-            // console.log(formData.get('receiverPhonenumber'))
-            // console.log(formData.get('receiverAddress'))
-            // console.log(formData.get('productType'))
-            // console.log(formData.get('productWeight'))
-            // console.log(formData.get('startDate'))
-            // console.log(formData.get('startTime'))
-            // console.log(formData.get('returnLabel'))
+            formData.append('status',this.state.status)
+            formData.append('process',this.state.process)
 
 
             AuthService.order(

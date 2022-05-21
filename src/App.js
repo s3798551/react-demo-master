@@ -19,7 +19,6 @@ import Request from "./components/request.component";
 import Track from "./components/track.compoent";
 import History from "./components/history.component";
 import Process from "./components/process.component";
-import RequestDetail from "./components/requestDetail.component";
 
 
 // import AuthVerify from "./common/auth-verify";
@@ -186,8 +185,23 @@ class App extends Component {
                     {currentDriver ? (
                         <div className="navbar-nav ml-auto">
                             <li className="nav-item">
+                                <a href="/requestDetail" className="nav-link">
+                                    Detail
+                                </a>
+                            </li>
+                            <li className="nav-item">
                                 <a href="/request" className="nav-link">
                                     Requests
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a href="/process" className="nav-link">
+                                    Process
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a href="/history" className="nav-link">
+                                    History
                                 </a>
                             </li>
                             <li className="nav-item">

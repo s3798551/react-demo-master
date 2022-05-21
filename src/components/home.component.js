@@ -5,7 +5,9 @@ import UserService from "../services/user.service";
 export default class Home extends Component {
 
   state = {
-    content: ""
+    content: "",
+      latitude: 0,
+      longitude: 0
   };
 
   componentDidMount() {
@@ -34,12 +36,18 @@ export default class Home extends Component {
       Geocode.fromAddress("18/33 LaTrobe Street").then(
           (response) => {
               const { lat, lng } = response.results[0].geometry.location;
-              console.log(lat, lng);
+              // console.log(lat, lng);
+              this.setState({
+                  longitude:lng,
+                  latitude:lat
+              })
           },
           (error) => {
               console.error(error);
           }
       );
+
+      console.log(this.state.longitude,this.state.latitude)
   }
 
   render() {

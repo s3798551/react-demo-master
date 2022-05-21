@@ -17,7 +17,7 @@ class AuthService {
             localStorage.setItem("role","user");
           }else if(response.data.roles[0] === 'ROLE_DRIVER'){
             localStorage.setItem("driver", JSON.stringify(response.data));
-            localStorage.setItem("role","driver");
+            localStorage.setItem("role","driver")
           }
         }
 
@@ -86,7 +86,7 @@ class AuthService {
   }
 
   getCurrentRole(){
-    return localStorage.getItem('role');
+    return localStorage.getItem("role");
   }
 
   getOrderList() {
