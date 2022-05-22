@@ -185,11 +185,6 @@ class App extends Component {
                     {currentDriver ? (
                         <div className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <a href="/requestDetail" className="nav-link">
-                                    Detail
-                                </a>
-                            </li>
-                            <li className="nav-item">
                                 <a href="/request" className="nav-link">
                                     Requests
                                 </a>

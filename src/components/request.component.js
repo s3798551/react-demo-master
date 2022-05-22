@@ -37,6 +37,12 @@ export default class Track extends Component {
 
 
     renderOrderDetail = (e) =>{
+        var orderID
+        localStorage.setItem(orderID, e.target.id);
+        this.props.history.push("/details");
+    }
+
+    acceptOrder = (e) =>{
         AuthService.acceptOrder(
             e.target.id
         ).then(
@@ -58,10 +64,12 @@ export default class Track extends Component {
             }
         );
 
-        // var orderID
-        // localStorage.setItem(orderID, e.target.id);
-        // this.props.history.push("/requestDetail");
+        var orderID
+        localStorage.setItem(orderID, e.target.id);
+        this.props.history.push("/requestDetail");
     }
+
+
 
     render() {
         const { initLoading, loading, list, orderList } = this.state;
@@ -74,7 +82,7 @@ export default class Track extends Component {
                 dataSource={list}
                 renderItem={order => (
                     <List.Item
-                        actions={[<a id={order.id} onClick={this.renderOrderDetail}>Check</a>] }
+                        actions={[<a id={order.id} onClick={this.acceptOrder}>Accept</a>] }
                     >
                         <Skeleton avatar title={false} loading={order.loading} active>
                             {/*<Skeleton avatar title={false}  active>*/}

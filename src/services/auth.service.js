@@ -134,6 +134,18 @@ class AuthService {
     // return axios.get(API_URL + 'getAll',userID);
   }
 
+  getDriverOrders(){
+    const driverID = this.getCurrentDriver().id
+    return axios({
+      method: 'GET',
+      url: API_URL + 'orders/getDriverOrders',
+      contentType: "application/json",
+      params:{
+        id : driverID
+      }
+    })
+  }
+
   acceptOrder(orderID){
     const driverID= this.getCurrentDriver().id
     console.log(orderID,driverID)
@@ -151,19 +163,19 @@ class AuthService {
     //     driverID
     //   }
     // })
-
   }
 
-  getDriverOrders(driverID){
-    return axios({
-      method: 'GET',
-      url: API_URL + 'orders/getDriverOrders',
-      contentType: "application/json",
-      params:{
-        id : driverID
-      }
-    })
+  updateProcess(orderID,process){
+    process = process + 1
+    console.log(orderID,process)
+    const id = parseInt(orderID)
+    return axios.put(API_URL + "orders/updateOrder", {
+      id,
+      process
+    });
   }
+
+
 
 }
 

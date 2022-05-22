@@ -10,7 +10,8 @@ export default class Details extends Component {
         process: 0,
         time : new Date(),
         orderID: 0,
-        orderDetail: []
+        orderDetail: [],
+        showElem: true
     }
 
     componentDidMount() {
@@ -22,6 +23,9 @@ export default class Details extends Component {
         // console.log(this.state.orderID)
         var orderID
         var localS = localStorage.getItem(orderID);
+        this.setState({
+            orderID:localS
+        })
         console.log(localS);
 
         AuthService.getOrderDetails(localS).then(
@@ -42,11 +46,49 @@ export default class Details extends Component {
                 console.log("error")
             }
         );
+
+        const role = AuthService.getCurrentRole();
+        if(role === 'user'){
+            this.setState( {showElem : true});
+        }else if (role === 'driver'){
+            this.setState( {showElem : false });
+        }
     }
 
     // componentWillUnmount() {
     //     PubSub.unsubscribe(this.token)
     // }
+
+    returnTrack = () =>{
+        this.props.history.push("/track");
+    }
+
+    acceptOrder = () =>{
+        var orderID
+        var localS = localStorage.getItem(orderID);
+        AuthService.acceptOrder(
+            this.state.orderID
+        ).then(
+            response => {
+                this.setState({
+                    message: response.data.message,
+                });
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                this.setState({
+                    message: resMessage
+                });
+            }
+        );
+
+        this.props.history.push("/requestDetail");
+    }
 
     render() {
         const {orderDetail} = this.state
@@ -98,7 +140,13 @@ export default class Details extends Component {
 
                     </Col>
                     <Col offset={3}>
-                        <Button type="primary">Cancel</Button>
+                        {
+                            this.state.showElem?(
+                            <Button type="primary" onClick={this.returnTrack} >Back</Button>
+                            ):(
+                            <Button type="primary" onClick={this.acceptOrder} >Accept</Button>
+                            )
+                        }
                     </Col>
                 </Row>
 

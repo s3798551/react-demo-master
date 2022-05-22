@@ -9,7 +9,6 @@ export default class RequestDetail extends Component {
     state = {
         process: 1,
         time: new Date(),
-        orderID: 0,
         orderDetail: [],
         showElem: true
     };
@@ -32,9 +31,33 @@ export default class RequestDetail extends Component {
 
 
     nextStep = () => {
+        this.setState({process: this.state.process + 1})
+        const {orderDetail} = this.state
+        AuthService.updateProcess(
+            orderDetail.id,
+            this.state.process
+        ).then(
+            response => {
+                this.setState({
+                    message: response.data.message,
+                });
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                this.setState({
+                    message: resMessage
+                });
+            }
+        );
         if (this.state.process === 2) {
+            const key = `open${Date.now()}`;
             const btn = (
-                <Button type="primary" size="small">
+                <Button type="primary" size="small" onClick={() => notification.close(key)}>
                     Confirm
                 </Button>
             );
@@ -42,11 +65,16 @@ export default class RequestDetail extends Component {
                 message: 'Order complete!',
                 description:
                     '',
-                btn
+                btn,
+                key
             });
             this.setState({showElem:false})
         }
-        this.setState({process: this.state.process + 1})
+
+    }
+
+    backRequest = () =>{
+        this.props.history.push("/request");
     }
 
     render() {
@@ -109,7 +137,7 @@ export default class RequestDetail extends Component {
                             this.state.showElem?(
                                 <Button type="primary" onClick={this.nextStep} >Next Step</Button>
                             ):(
-                                <Button type="primary">Finish</Button>
+                                <Button type="primary" onClick={this.backRequest}>Finish</Button>
                             )
                         }
 
