@@ -12,7 +12,13 @@ class AuthService {
       })
       .then(response => {
         if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          if (response.data.roles[0] === 'ROLE_USER'){
+            localStorage.setItem("user", JSON.stringify(response.data));
+            localStorage.setItem("role","user");
+          }else if(response.data.roles[0] === 'ROLE_DRIVER'){
+            localStorage.setItem("driver", JSON.stringify(response.data));
+            localStorage.setItem("role","driver")
+          }
         }
 
         return response.data;
@@ -21,13 +27,26 @@ class AuthService {
 
   logout() {
     localStorage.removeItem("user");
+    localStorage.removeItem("driver");
   }
 
-  register(username, email, password) {
+  driverRegister(username, email, password, role, phone) {
+    console.log(username, email, password, role, phone)
     return axios.post(API_URL + "signup", {
       username,
       email,
-      password
+      password,
+      role,
+      phone
+    });
+  }
+
+  userRegister(username,email,password,role){
+    return axios.post(API_URL + "signup", {
+      username,
+      email,
+      password,
+      role
     });
   }
 
@@ -62,22 +81,100 @@ class AuthService {
     return JSON.parse(localStorage.getItem('user'));;
   }
 
+  getCurrentDriver() {
+    return JSON.parse(localStorage.getItem('driver'));;
+  }
+
+  getCurrentRole(){
+    return localStorage.getItem("role");
+  }
+
   getOrderList() {
-    const userID= this.getCurrentUser().id;
-    axios({
+    const userID= this.getCurrentUser().id
+    // return axios({
+    //   method: 'GET',
+    //   url: API_URL + 'orders/create',
+    //   contentType: "application/json",
+    //   data: formData
+    // }
+    return axios({
       method: 'GET',
-      url: API_URL + 'orderList',
-      data: userID
-    }).then(res => {
-      return res;
+      url: API_URL + 'orders/getAll',
+      contentType: "application/json",
+      params:{
+        userid : userID
+      }
     })
-
-    return axios.get(API_URL + 'orderList',userID);
+    // return axios.get(API_URL + 'getAll',userID);
   }
 
-  getOrderDetails(){
+  getOrderDetails(orderID){
+    // let formData = new FormData()
+    // formData.append('id',5)
 
+    return axios({
+      method: 'GET',
+      url: API_URL + 'orders/getOrder',
+      contentType: "application/json",
+      params:{
+        id : orderID
+      }
+    })
   }
+
+  getWaitingOrder() {
+    return axios({
+      method: 'GET',
+      url: API_URL + 'orders/getWaitingOrder',
+      contentType: "application/json",
+      // params:{
+      //
+      // }
+    })
+    // return axios.get(API_URL + 'getAll',userID);
+  }
+
+  getDriverOrders(){
+    const driverID = this.getCurrentDriver().id
+    return axios({
+      method: 'GET',
+      url: API_URL + 'orders/getDriverOrders',
+      contentType: "application/json",
+      params:{
+        id : driverID
+      }
+    })
+  }
+
+  acceptOrder(orderID){
+    const driverID= this.getCurrentDriver().id
+    console.log(orderID,driverID)
+    const id = parseInt(orderID)
+    return axios.put(API_URL + "orders/acceptOrder", {
+      id,
+      driverID
+    });
+    // return axios({
+    //   method: 'PUT',
+    //   url: API_URL + 'orders/acceptOrder',
+    //   contentType: "application/json",
+    //   params:{
+    //     orderID,
+    //     driverID
+    //   }
+    // })
+  }
+
+  updateProcess(orderID,process){
+    process = process + 1
+    console.log(orderID,process)
+    const id = parseInt(orderID)
+    return axios.put(API_URL + "orders/updateOrder", {
+      id,
+      process
+    });
+  }
+
 
 
 }

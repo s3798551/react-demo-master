@@ -15,34 +15,7 @@ export default class Track extends Component {
     };
 
     componentDidMount() {
-        // fetch(fakeDataUrl)
-        //     .then(res => res.json())
-        //     .then(res => {
-        //         console.log(res)
-        //         // this.setState({
-        //         //     initLoading: false,
-        //         //     data: res.results,
-        //         //     list: res.results,
-        //         // });
-        //     });
-
-        // fetch("http://localhost:8080/api/auth/orders/getAll", {
-        //     method: 'get',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({ //在服务器端通过req.body.eid方式获取
-        //         eid: id
-        //     })
-        // }).then(res =>{
-        //     return res.json(); //不是用户需要的数据,通过return返回
-        // }).then(data =>{ //用户需要的数据
-        //     console.log(data.msg)
-        // }).catch(e =>{
-        //     console.log(e)
-        // })
-
-        AuthService.getOrderList().then(
+        AuthService.getWaitingOrder().then(
             response => {
                 this.setState({orderList:response.data})
                 console.log(this.state.orderList)
@@ -63,14 +36,40 @@ export default class Track extends Component {
     }
 
 
-
     renderOrderDetail = (e) =>{
         var orderID
-        // PubSub.publish('orderID',{'orderID':e.target.id})
         localStorage.setItem(orderID, e.target.id);
         this.props.history.push("/details");
-        // window.location.reload();
     }
+
+    acceptOrder = (e) =>{
+        AuthService.acceptOrder(
+            e.target.id
+        ).then(
+            response => {
+                this.setState({
+                    message: response.data.message,
+                });
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                this.setState({
+                    message: resMessage
+                });
+            }
+        );
+
+        var orderID
+        localStorage.setItem(orderID, e.target.id);
+        this.props.history.push("/requestDetail");
+    }
+
+
 
     render() {
         const { initLoading, loading, list, orderList } = this.state;
@@ -83,14 +82,14 @@ export default class Track extends Component {
                 dataSource={list}
                 renderItem={order => (
                     <List.Item
-                        actions={[<a id={order.id} onClick={this.renderOrderDetail}>Check</a>] }
+                        actions={[<a id={order.id} onClick={this.acceptOrder}>Accept</a>] }
                     >
                         <Skeleton avatar title={false} loading={order.loading} active>
-                        {/*<Skeleton avatar title={false}  active>*/}
+                            {/*<Skeleton avatar title={false}  active>*/}
                             <List.Item.Meta
                                 // avatar={<Avatar src={item.picture.large} />}
-                                title={<a id={order.id} onClick={this.renderOrderDetail}>Appointment No. {order.id}</a>}
-                                description={ <p >Receiver name: {order.receiver_name}  Receiver address: {order.receiver_address}</p>}
+                                title={<a id={order.id} onClick={this.renderOrderDetail}>{order.sender_address}</a>}
+                                description={ <p >Receiver address: {order.receiver_address}</p>}
                             />
                         </Skeleton>
                     </List.Item>

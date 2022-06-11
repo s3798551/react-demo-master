@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Radio } from 'antd';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -20,6 +21,7 @@ export default class Login extends Component {
   state = {
     username: "",
     password: "",
+    role: 1,
     loading: false,
     message: ""
   }
@@ -33,6 +35,12 @@ export default class Login extends Component {
   onChangePassword = (e) =>{
     this.setState({
       password: e.target.value
+    });
+  }
+
+  onChangeRole = (e) =>{
+    this.setState({
+      role: e.target.value
     });
   }
 
@@ -50,7 +58,7 @@ export default class Login extends Component {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
           this.props.history.push("/profile");
-          window.location.reload();
+           window.location.reload();
         },
         error => {
           const resMessage =
@@ -123,6 +131,8 @@ export default class Login extends Component {
                 )}
                 <span>Login</span>
               </button>
+              <br/>
+
               <br/>
               <p>No account? <a href={"/register"}>Sign up</a> Now!</p>
               {/*<Link to="/register">*/}
